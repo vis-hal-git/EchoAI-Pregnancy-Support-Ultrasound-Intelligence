@@ -599,16 +599,22 @@ left_col, right_col = st.columns([1.05, 1.95], gap="large")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# LEFT — Upload & Query
+# LEFT — Image Upload & Analysis Action
 # ══════════════════════════════════════════════════════════════════════════════
 with left_col:
 
-    st.markdown('<div class="sec-heading">📁 Ultrasound Scan Upload <span style="font-size:0.75rem;font-weight:400;color:#7c7a8e;">(Optional)</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="sec-heading">📁 Ultrasound Image Upload</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<p style="font-size:0.84rem; color:#7c7a8e; margin-top:-4px; margin-bottom:12px;">'
+        'Upload your ultrasound image below, then click <strong>Upload & Generate Report</strong> to receive a detailed clinical assessment.'
+        '</p>',
+        unsafe_allow_html=True,
+    )
 
     uploaded = st.file_uploader(
-        "Upload scan (.png, .jpg) or cine sweep (.mp4, .avi)",
+        "Upload ultrasound image (.png, .jpg, .jpeg) or cine sweep (.mp4, .avi)",
         type=["png","jpg","jpeg","bmp","tif","tiff","webp","mp4","avi","mov","mkv"],
-        help="Upload for visual evaluation, or leave blank for text-only pregnancy queries.",
+        help="Select a 2D/3D ultrasound image or sweep file for clinical assessment.",
         label_visibility="collapsed",
     )
 
@@ -622,66 +628,33 @@ with left_col:
         else:
             st.image(uploaded, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
-        file_size_mb = len(uploaded.getvalue()) / (1024*1024)
-        st.caption(f"📄 **{uploaded.name}** · `{file_size_mb:.2f} MB` · `{'Video' if is_video_upload else 'Image'}`")
+        file_size_kb = len(uploaded.getvalue()) / 1024
+        size_str = f"{file_size_kb:.1f} KB" if file_size_kb < 1024 else f"{(file_size_kb/1024):.2f} MB"
+        st.caption(f"🖼️ **{uploaded.name}** · `{size_str}` · `{'Video cine sweep' if is_video_upload else 'Ultrasound scan'}`")
+    else:
+        st.markdown("""
+        <div style="border: 2px dashed #f0e6f6; border-radius: 12px; padding: 2rem 1.2rem; text-align: center; background: #ffffff; margin-bottom: 1rem; box-shadow: var(--shadow);">
+            <div style="font-size: 2.2rem; margin-bottom: 0.4rem;">🩺</div>
+            <div style="font-weight: 700; color: #1e1b2e; font-size: 0.95rem;">Select an Ultrasound Scan or Image</div>
+            <div style="font-size: 0.8rem; color: #7c7a8e; margin-top: 4px;">Supports standard formats (.png, .jpg, .jpeg)</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-    with st.expander("⚙️ Vision processing parameters", expanded=False):
-        k_frames = st.slider("Video keyframes to extract (k)", 4, 16, 8, 1,
-            help="ISUOG cardiac sweep: k keyframes extracted via optical flow. 8 covers a full cardiac cycle.")
-        st.caption("ℹ️ Default 8 frames: 4CH → LVOT → RVOT → 3VT.")
+    with st.expander("💬 Optional: Custom Focus or Clinical Query", expanded=False):
+        custom_question = st.text_input(
+            "Specific area to evaluate (optional)",
+            value="",
+            placeholder="e.g. Check for gestational sac viability, evaluate endometrial stripe, or review ovaries",
+            help="Leave blank to automatically run the full standard clinical assessment report.",
+        )
+        if is_video_upload:
+            k_frames = st.slider("Cine sweep keyframes (k)", 4, 16, 8, 1, help="Number of frames extracted across the cine-loop sweep.")
+        else:
+            k_frames = 8
 
-    # ── Quick Presets ──
-    st.markdown('<div class="preset-label">⚡ Quick Consultation Presets</div>', unsafe_allow_html=True)
-    c1, c2 = st.columns(2)
-
-    with c1:
-        if st.button("🤰 Early Viability & Sac", use_container_width=True):
-            st.session_state.query_input = (
-                "What are the critical ultrasound markers to confirm intrauterine pregnancy viability "
-                "(gestational sac, double decidual sign, yolk sac, fetal pole, embryonic heart rate), "
-                "and at what gestational weeks should each appear per clinical guidelines?"
-            )
-        if st.button("🩺 Gravid vs. Non-Gravid", use_container_width=True):
-            st.session_state.query_input = (
-                "Determine scan status: Is this an obstetric scan showing pregnancy landmarks "
-                "(gestational sac, fetus, cardiac activity) or a non-gravid pelvic ultrasound? "
-                "Detail all visible anatomical structures."
-            )
-        if st.button("💧 Placenta & Fluid Volume", use_container_width=True):
-            st.session_state.query_input = (
-                "What are the standard ultrasound evaluation criteria for amniotic fluid volume "
-                "(Single Deepest Pocket vs AFI) and placental location/grading across pregnancy?"
-            )
-
-    with c2:
-        if st.button("📅 Gestational Age Dating", use_container_width=True):
-            st.session_state.query_input = (
-                "How is gestational age calculated on ultrasound across trimesters? "
-                "Detail CRL, BPD, HC, AC, and FL accuracy per clinical obstetric ultrasound standards."
-            )
-        if st.button("🔬 Fetal Anatomical Screen", use_container_width=True):
-            st.session_state.query_input = (
-                "Perform full fetal ultrasound anatomical screening. "
-                "Evaluate the 4-Chamber view, LVOT, RVOT, 3VT, spine, and stomach/situs planes."
-            )
-        if st.button("⚠️ PUL & Ectopic Signs", use_container_width=True):
-            st.session_state.query_input = (
-                "What are the diagnostic protocols and sonographic criteria for Pregnancy of Unknown Location (PUL) "
-                "and ectopic pregnancy? When is serum β-hCG correlation required?"
-            )
-
-    # ── Query Input ──
-    user_query = st.text_area(
-        "Your pregnancy or ultrasound question",
-        value=st.session_state.query_input,
-        height=110,
-        placeholder="e.g. What are signs of a viable pregnancy at 7 weeks? Or attach a scan above for multimodal analysis…",
-        help="Ask any pregnancy support question, or upload a scan for visual assessment.",
-    )
-
-    b1, b2 = st.columns([2, 1])
+    b1, b2 = st.columns([2.3, 1])
     with b1:
-        analyze_clicked = st.button("🌸 Submit Query / Analyse Scan", type="primary", use_container_width=True)
+        generate_clicked = st.button("🌸 Upload & Generate Report", type="primary", use_container_width=True)
     with b2:
         reset_clicked = st.button("↩ Reset", use_container_width=True)
 
@@ -699,24 +672,33 @@ with left_col:
         st.success("Session cleared.")
         st.rerun()
 
-    if analyze_clicked:
-        if not user_query.strip():
-            st.warning("Please enter a question or select a preset above.")
+    if generate_clicked:
+        if not uploaded:
+            st.warning("⚠️ Please select and upload an ultrasound image first.")
         elif not is_online:
-            st.error("Backend is offline — cannot run analysis.")
+            st.error("⚠️ Backend is offline — cannot run analysis.")
         else:
-            with st.status("Analysing…", expanded=True) as status_box:
+            default_eval_prompt = (
+                "Perform a comprehensive ultrasound evaluation: "
+                "1. Determine and classify whether this scan indicates PREGNANCY DETECTED (GRAVID) "
+                "or NON-PREGNANT (NON-GRAVID) or INDETERMINATE (PUL / Early Correlation). "
+                "2. Provide a detailed anatomical breakdown and checklist of all visible pelvic and fetal structures. "
+                "3. Assess the ultrasound plane, acoustic quality, and imaging orientation. "
+                "4. Correlate with clinical reference standards from the knowledge base and provide clear recommendations."
+            )
+            final_query = custom_question.strip() if (custom_question and custom_question.strip()) else default_eval_prompt
+
+            with st.status("Analyzing ultrasound image & generating report…", expanded=True) as status_box:
                 t_start = time.time()
-                status_box.write("Preparing query & consulting clinical knowledge base…")
+                status_box.write("Consulting clinical knowledge base (`rag-only`)…")
                 time.sleep(0.1)
-                if uploaded:
-                    status_box.write("Ingesting scan & extracting keyframes…")
+                status_box.write("Ingesting scan & processing keyframes…")
                 try:
-                    files = {"file": (uploaded.name, uploaded.getvalue(), uploaded.type)} if uploaded else {"file": ("", b"")}
+                    files = {"file": (uploaded.name, uploaded.getvalue(), uploaded.type)}
                     resp = requests.post(
                         f"{API_URL}/analyze",
                         files=files,
-                        data={"query": user_query.strip(), "k": k_frames},
+                        data={"query": final_query, "k": k_frames if "k_frames" in locals() else 8},
                         timeout=140,
                     )
                     if resp.status_code == 200:
@@ -727,14 +709,14 @@ with left_col:
                         st.session_state.citations    = data.get("citations", [])
                         now_str = datetime.datetime.now().strftime("%H:%M:%S")
                         st.session_state.chat_history = [
-                            {"role": "user",      "content": user_query.strip(), "timestamp": now_str},
+                            {"role": "user",      "content": f"Ultrasound Image Analysis: {uploaded.name}", "timestamp": now_str},
                             {"role": "assistant", "content": data["answer"],     "timestamp": now_str},
                         ]
                         elapsed = time.time() - t_start
-                        status_box.update(label=f"✅ Done in {elapsed:.1f}s", state="complete", expanded=False)
+                        status_box.update(label=f"✅ Detailed report ready in {elapsed:.1f}s", state="complete", expanded=False)
                         st.rerun()
                     else:
-                        status_box.update(label="Error", state="error")
+                        status_box.update(label="Analysis error", state="error")
                         st.error(f"API {resp.status_code}: {resp.text}")
                 except Exception as e:
                     status_box.update(label="Connection error", state="error")
@@ -765,17 +747,45 @@ with right_col:
         else:
             st.markdown('<div class="banner banner-info"><div class="banner-title">💡 Pregnancy Support Consultation</div>Evidence-based response grounded in clinical ultrasound knowledge base.</div>', unsafe_allow_html=True)
 
-    tab_chat, tab_report, tab_cites, tab_tele = st.tabs([
-        "💬 Consultation",
-        "📋 Assessment Report",
+    tab_report, tab_chat, tab_cites, tab_tele = st.tabs([
+        "📋 Detailed Assessment Report",
+        "💬 Consultation & Follow-up",
         f"📚 Clinical Records ({len(st.session_state.citations)})",
         "🔬 Session Info",
     ])
 
+    # ── Report Tab ──
+    with tab_report:
+        if st.session_state.chat_history:
+            reports = [t["content"] for t in st.session_state.chat_history if t["role"] == "assistant"]
+            if reports:
+                latest_report = reports[-1]
+                d1, d2 = st.columns(2)
+                with d1:
+                    st.download_button(
+                        "📥 Download Report (.md)",
+                        data=latest_report,
+                        file_name=f"wombcare_{st.session_state.session_id[:8] if st.session_state.session_id else 'report'}.md",
+                        mime="text/markdown",
+                        use_container_width=True,
+                    )
+                with d2:
+                    st.download_button(
+                        "📄 Export Consultation (.json)",
+                        data=json.dumps(st.session_state.chat_history, indent=2),
+                        file_name=f"wombcare_case_{st.session_state.session_id[:8] if st.session_state.session_id else 'case'}.json",
+                        mime="application/json",
+                        use_container_width=True,
+                    )
+                st.markdown("### Clinical Assessment")
+                st.markdown(latest_report)
+        else:
+            st.info("👆 Upload an ultrasound image on the left and click **Upload & Generate Report** to produce a detailed assessment.")
+
     # ── Chat Tab ──
     with tab_chat:
         if not st.session_state.chat_history:
-            st.info("Enter a question on the left and click **Submit** to begin your consultation.")
+            st.info("Upload an ultrasound image on the left and click **Upload & Generate Report** to begin.")
         else:
             for turn in st.session_state.chat_history:
                 role    = turn["role"]
@@ -783,7 +793,7 @@ with right_col:
                 ts      = turn.get("timestamp", "")
                 if role == "user":
                     with st.chat_message("user", avatar="🌸"):
-                        st.markdown(f"**Your question** `{ts}`")
+                        st.markdown(f"**Your scan** `{ts}`")
                         st.markdown(content)
                 else:
                     with st.chat_message("assistant", avatar=LOGO_PATH if os.path.exists(LOGO_PATH) else "🩺"):
@@ -817,34 +827,6 @@ with right_col:
                                 st.error(f"Error {resp.status_code}: {resp.text}")
                         except Exception as e:
                             st.error(f"Chat error: {e}")
-
-    # ── Report Tab ──
-    with tab_report:
-        if st.session_state.chat_history:
-            reports = [t["content"] for t in st.session_state.chat_history if t["role"] == "assistant"]
-            if reports:
-                latest_report = reports[-1]
-                d1, d2 = st.columns(2)
-                with d1:
-                    st.download_button(
-                        "📥 Download Report (.md)",
-                        data=latest_report,
-                        file_name=f"wombcare_{st.session_state.session_id[:8] if st.session_state.session_id else 'report'}.md",
-                        mime="text/markdown",
-                        use_container_width=True,
-                    )
-                with d2:
-                    st.download_button(
-                        "📄 Export Consultation (.json)",
-                        data=json.dumps(st.session_state.chat_history, indent=2),
-                        file_name=f"wombcare_case_{st.session_state.session_id[:8] if st.session_state.session_id else 'case'}.json",
-                        mime="application/json",
-                        use_container_width=True,
-                    )
-                st.markdown("### Clinical Assessment")
-                st.markdown(latest_report)
-        else:
-            st.info("No report yet. Submit a query or scan to generate a structured assessment.")
 
     # ── Citations Tab ──
     with tab_cites:
