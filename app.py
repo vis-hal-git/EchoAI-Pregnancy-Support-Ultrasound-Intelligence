@@ -578,12 +578,12 @@ st.markdown(f"""
         {logo_display}
         <div>
             <div class="wc-title">WombCare · Pregnancy & Ultrasound Intelligence</div>
-            <div class="wc-subtitle">Multimodal fetal assessment powered by ISUOG practice standards</div>
+            <div class="wc-subtitle">Multimodal fetal assessment grounded in clinical ultrasound data (`rag-only`)</div>
         </div>
     </div>
     <div class="badge-row">
         {status_badge}
-        <span class="badge badge-guide">ISUOG 2023</span>
+        <span class="badge badge-guide">RAG Knowledge Base</span>
         <span class="badge badge-model">GPT-4o Vision</span>
         <span class="badge badge-model">Multimodal AI</span>
     </div>
@@ -657,12 +657,12 @@ with left_col:
         if st.button("📅 Gestational Age Dating", use_container_width=True):
             st.session_state.query_input = (
                 "How is gestational age calculated on ultrasound across trimesters? "
-                "Detail CRL, BPD, HC, AC, and FL accuracy per ISUOG practice standards."
+                "Detail CRL, BPD, HC, AC, and FL accuracy per clinical obstetric ultrasound standards."
             )
-        if st.button("🫀 5-Plane Cardiac Screen", use_container_width=True):
+        if st.button("🔬 Fetal Anatomical Screen", use_container_width=True):
             st.session_state.query_input = (
-                "Perform full ISUOG 2023 fetal cardiac screening. "
-                "Evaluate the 4-Chamber view, LVOT, RVOT, 3VT, and stomach/situs planes."
+                "Perform full fetal ultrasound anatomical screening. "
+                "Evaluate the 4-Chamber view, LVOT, RVOT, 3VT, spine, and stomach/situs planes."
             )
         if st.button("⚠️ PUL & Ectopic Signs", use_container_width=True):
             st.session_state.query_input = (
@@ -707,7 +707,7 @@ with left_col:
         else:
             with st.status("Analysing…", expanded=True) as status_box:
                 t_start = time.time()
-                status_box.write("Preparing query & consulting ISUOG knowledge base…")
+                status_box.write("Preparing query & consulting clinical knowledge base…")
                 time.sleep(0.1)
                 if uploaded:
                     status_box.write("Ingesting scan & extracting keyframes…")
@@ -742,9 +742,9 @@ with left_col:
 
     st.markdown("""
     <div class="disclaimer">
-        <strong>⚖️ Clinical support tool only.</strong> WombCare output is grounded in ISUOG practice guidelines
-        and is intended for educational and decision-support purposes. It does not replace assessment by a
-        certified sonographer or fetal medicine specialist.
+        <strong>⚖️ Clinical support tool only.</strong> WombCare output is grounded in the structured clinical ultrasound
+        knowledge base (`rag-only`) and is intended for educational and decision-support purposes. It does not replace
+        assessment by a certified sonographer or fetal medicine specialist.
     </div>
     """, unsafe_allow_html=True)
 
@@ -757,18 +757,18 @@ with right_col:
     if st.session_state.session_id and st.session_state.chat_history:
         latest = st.session_state.chat_history[-1]["content"] if st.session_state.chat_history else ""
         if "PREGNANCY DETECTED" in latest or "PREGNANT" in latest:
-            st.markdown('<div class="banner banner-gravid"><div class="banner-title">🤰 Pregnancy Detected</div>Obstetric structures identified and grounded in ISUOG guidelines.</div>', unsafe_allow_html=True)
+            st.markdown('<div class="banner banner-gravid"><div class="banner-title">🤰 Pregnancy Detected</div>Obstetric structures identified and grounded in clinical ultrasound records.</div>', unsafe_allow_html=True)
         elif "NON-PREGNANT" in latest or "NON-GRAVID" in latest:
             st.markdown('<div class="banner banner-nongravid"><div class="banner-title">🩺 Non-Gravid Scan</div>Pelvic anatomy identified without intrauterine gestational sac.</div>', unsafe_allow_html=True)
         elif "INDETERMINATE" in latest:
             st.markdown('<div class="banner banner-indeterminate"><div class="banner-title">⚠️ Indeterminate — Correlation Required</div>Equivocal findings. Clinical correlation with serum β-hCG and repeat TVS advised.</div>', unsafe_allow_html=True)
         else:
-            st.markdown('<div class="banner banner-info"><div class="banner-title">💡 Pregnancy Support Consultation</div>Evidence-based response grounded in ISUOG practice standards.</div>', unsafe_allow_html=True)
+            st.markdown('<div class="banner banner-info"><div class="banner-title">💡 Pregnancy Support Consultation</div>Evidence-based response grounded in clinical ultrasound knowledge base.</div>', unsafe_allow_html=True)
 
     tab_chat, tab_report, tab_cites, tab_tele = st.tabs([
         "💬 Consultation",
         "📋 Assessment Report",
-        f"📚 Guidelines ({len(st.session_state.citations)})",
+        f"📚 Clinical Records ({len(st.session_state.citations)})",
         "🔬 Session Info",
     ])
 
@@ -794,7 +794,7 @@ with right_col:
                 st.markdown("---")
                 follow_up = st.chat_input("Ask a follow-up question…")
                 if follow_up:
-                    with st.spinner("Consulting ISUOG guidelines…"):
+                    with st.spinner("Consulting clinical knowledge base…"):
                         try:
                             resp = requests.post(
                                 f"{API_URL}/chat",
@@ -849,9 +849,9 @@ with right_col:
     # ── Citations Tab ──
     with tab_cites:
         if st.session_state.citations:
-            st.markdown(f"**{len(st.session_state.citations)} records** retrieved from the ISUOG RAG knowledge base.")
+            st.markdown(f"**{len(st.session_state.citations)} records** retrieved from the `rag-only` clinical knowledge base.")
             for c in st.session_state.citations:
-                label = c.get("label", f"Guideline [{c.get('id','•')}]")
+                label = c.get("label", f"Record [{c.get('id','•')}]")
                 text  = c.get("text", "")
                 st.markdown(f"""
                 <div class="citation">
@@ -860,7 +860,7 @@ with right_col:
                 </div>
                 """, unsafe_allow_html=True)
         else:
-            st.info("Guideline citations will appear here after your first analysis.")
+            st.info("Clinical records will appear here after your first analysis.")
 
     # ── Telemetry Tab ──
     with tab_tele:
@@ -874,9 +874,9 @@ with right_col:
             "API_URL":        API_URL,
             "Backend":        "Online" if st.session_state.backend_online else "Offline",
             "Latency (ms)":   st.session_state.last_latency_ms,
-            "Knowledge base": "ChromaDB RAG · 1,520 ISUOG records + SQLite FTS5",
+            "Knowledge base": "rag-only dataset · 1,520 records + SQLite FTS5",
             "Vision model":   "GPT-4o Multimodal (High Detail)",
-            "Guidelines":     "ISUOG Practice Standards (Carvalho 2023)",
+            "Clinical data":  "Curated clinical ultrasound knowledge base (rag-only)",
         })
 
 
@@ -889,7 +889,7 @@ with st.sidebar:
         st.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🌸 Clinical Reference")
     st.markdown("""
-**WombCare** grounds all responses in **ISUOG Practice Standards**:
+**WombCare** grounds all responses in the structured clinical ultrasound knowledge base (`rag-only`):
 
 **First Trimester (5–12 wks)**
 - 4.5–5 wks: Gestational sac in decidua
@@ -899,7 +899,7 @@ with st.sidebar:
 - 11–13+6 wks: Nuchal translucency screening
 
 **Second Trimester (18–22 wks)**
-- 5-plane fetal echocardiography:
+- 5-plane fetal anatomical screening:
   · Situs & stomach
   · 4-Chamber view (45° axis)
   · LVOT · RVOT · 3VT
@@ -916,7 +916,7 @@ with st.sidebar:
     st.markdown("### ⚙️ Pipeline")
     st.markdown("""
 - Optical flow keyframe extraction
-- ChromaDB vector RAG (ISUOG corpus)
+- ChromaDB / SQLite FTS5 RAG (rag-only)
 - GPT-4o multimodal vision fusion
     """)
 

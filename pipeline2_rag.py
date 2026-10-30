@@ -564,8 +564,8 @@ def _retrieve_via_assistant(query: str, vs_id: str, k: int) -> list[str]:
 
 
 def _expand_query(query: str) -> str:
-    """Prepend clinical context to improve semantic recall."""
-    return f"Fetal ultrasound obstetric cardiac guidelines: {query}"
+    """Prepend clinical context for semantic retrieval across rag-only dataset."""
+    return f"Clinical ultrasound sonography: {query.strip()}"
 
 
 # ── Unified Public Interface ───────────────────────────────────────────────

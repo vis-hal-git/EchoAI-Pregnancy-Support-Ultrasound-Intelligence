@@ -10,7 +10,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111%2B-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.35%2B-FF4B4B.svg?logo=streamlit)](https://streamlit.io/)
 [![GPT-4o Vision](https://img.shields.io/badge/Model-GPT--4o%20Vision-purple.svg?logo=openai)](https://openai.com/)
-[![ISUOG 2023](https://img.shields.io/badge/Standards-ISUOG%202023-e91e8c.svg)](https://www.isuog.org/)
+[![Clinical RAG](https://img.shields.io/badge/Knowledge%20Base-rag--only%20(1%2C520%20records)-e91e8c.svg)](#-curated-clinical-rag-pipeline-2)
 [![License: MIT](https://img.shields.io/badge/License-MIT-gray.svg)](#-license)
 
 </div>
@@ -19,7 +19,7 @@
 
 ## 🌸 Overview
 
-**WombCare** is an executive multimodal medical AI dashboard engineered for fetal ultrasound screening, pelvic scan classification, and maternal pregnancy consultation. Grounded strictly in the **ISUOG 2023 Practice Guidelines** (*International Society of Ultrasound in Obstetrics and Gynecology*), WombCare couples **GPT-4o Multimodal Vision** with **Retrieval-Augmented Generation (RAG)** across a curated corpus of 1,520 clinical ultrasound records.
+**WombCare** is an executive multimodal medical AI dashboard engineered for fetal ultrasound screening, pelvic scan classification, and maternal pregnancy consultation. Grounded in the **`rag-only` clinical ultrasound dataset**, WombCare couples **GPT-4o Multimodal Vision** with **Retrieval-Augmented Generation (RAG)** across a curated corpus of 1,520 clinical ultrasound records.
 
 Whether evaluating static scans, dynamic cine-loop video sweeps, or clinical text consultations, WombCare delivers immediate diagnostic classification, structured anatomical checklists, plane evaluations, and cited clinical evidence.
 
@@ -36,13 +36,13 @@ Whether evaluating static scans, dynamic cine-loop video sweeps, or clinical tex
 - Supports static scans (`.png`, `.jpg`, `.jpeg`) and ultrasound video cine-loops (`.mp4`, `.avi`, `.mov`).
 - Employs **Variance-of-Laplacian blur filtering** combined with uniform temporal sampling to automatically extract the highest-clarity acoustic keyframes.
 
-### 3. ISUOG 2023 Clinical RAG (Pipeline 2)
-- Indexed against the official ISUOG Practice Guidelines (Carvalho et al., 2023) and the structured `rag-only/` clinical corpus (1,520 ultrasound records, 1,445 evidence excerpts, 68 cited guidelines).
+### 3. Curated Clinical RAG (Pipeline 2)
+- Indexed directly on the structured **`rag-only/`** clinical knowledge base (1,520 ultrasound records, 1,445 evidence excerpts, 68 cited clinical publications across views, findings, diseases, and workflows).
 - **Hybrid Retrieval Backends**:
   - **SQLite FTS5 Full-Text Search**: Instant zero-latency search with zero API cost.
   - **ChromaDB Vector Store**: Local embedding retrieval for offline/dev environments.
   - **OpenAI Cloud Vector Store**: Enterprise assistant-grade cloud retrieval.
-- Context-aware clinical query expansion and strict citation tracking (`[Guideline 1]`, `[Guideline 2]`).
+- Context-aware clinical query expansion and strict citation tracking (`[Reference 1]`, `[Reference 2]`).
 
 ### 4. Multimodal Fusion & Structured Reports (Pipeline 3)
 - Fuses sampled keyframes with retrieved clinical literature into a structured prompt for **GPT-4o**.
