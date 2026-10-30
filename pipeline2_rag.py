@@ -591,8 +591,16 @@ def format_rag_context(chunks: list[str]) -> str:
     """Format retrieved clinical records into a system prompt knowledge block."""
     if not chunks:
         return ""
-    parts = [f"[Guideline / Reference {i+1}]\n{c.strip()}" for i, c in enumerate(chunks)]
-    return "RELEVANT CLINICAL GUIDELINE & ULTRASOUND EVIDENCE:\n" + "\n\n".join(parts)
+    parts = [f"[Record {i+1}]\n{c.strip()}" for i, c in enumerate(chunks)]
+    return (
+        "============================================================\n"
+        "RETRIEVED CLINICAL KNOWLEDGE BASE & GUIDELINE EVIDENCE (RAG):\n"
+        "============================================================\n"
+        "The following verified records are retrieved from the clinical knowledge base (`rag-only`).\n"
+        "Ground diagnostic criteria, biometric ranges, anatomical checklist, and recommendations in these records.\n"
+        "Cite supporting claims using in-text tags [Record 1], [Record 2], etc.\n\n"
+        + "\n\n".join(parts)
+    )
 
 
 def extract_cited_excerpts(rag_chunks: list[str]) -> list[dict]:
@@ -600,10 +608,10 @@ def extract_cited_excerpts(rag_chunks: list[str]) -> list[dict]:
     citations = []
     for i, c in enumerate(rag_chunks):
         lines = [line.strip() for line in c.strip().split("\n") if line.strip()]
-        header = lines[0] if lines else f"Guideline {i+1}"
+        header = lines[0] if lines else f"Record [{i+1}]"
         citations.append({
             "id": i + 1,
-            "label": header,
+            "label": f"Record [{i+1}] · {header[:60]}",
             "text": c.strip()[:600]
         })
     return citations
