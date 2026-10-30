@@ -20,6 +20,10 @@ __pycache__/
 chroma_db/
 *.sqlite3
 
+# Large external datasets
+Fetal Abdominal Structures Segmentation Dataset Using Ultrasonic Images/
+*.zip
+
 # Logs & temp files
 *.log
 temp/

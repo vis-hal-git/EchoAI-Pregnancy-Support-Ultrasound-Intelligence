@@ -1,0 +1,22 @@
+{
+  "evidence_is_provenance_not_search_content": true,
+  "image_entries": 379,
+  "image_index": "64-bin grayscale histogram plus 64-bit perceptual descriptor",
+  "scope": "clinical_scan_time_only",
+  "semantic": {
+    "image": "READY",
+    "text": "READY"
+  },
+  "source_record_hashes": {
+    "cases": "99ea6808e1871df477ab48a543b952c84824146a37bf952811d08916317d7380",
+    "diseases": "8b8f93711528ced6b9978484aa581ed8f54b6eacdeb78fcc43a68e32f77333a0",
+    "evidence": "97be717eee31a1c7427000a31a08d3aaa10cb387b6625e46865b9607782a4d41",
+    "findings": "d2c82ddff99232f19055860d830adc7f85f60097d0d6f80b1aa60d2be691d175",
+    "media": "acb6a9ed6be6ebecabb9c746cd02d5b3a232dd3d712921f0914b9b4282bb0fe3",
+    "relationships": "e3fc9d65f631dd8b778a026e6c2f2057fa38796e9704b10b198fd77e31cc03dd",
+    "views": "4a7617797c686e2b2d76915ae6f36aa3c90bd3ec9d5f1985b62cd1a01138a423",
+    "workflows": "1e3f10c8ab7855b82e34ed02a278843264b967577ca6db04d6ced616a3d5beb4"
+  },
+  "text_entries": 1520,
+  "text_index": "SQLite FTS5 plus deterministic hashed TF-IDF vectors (512 dimensions)"
+}
