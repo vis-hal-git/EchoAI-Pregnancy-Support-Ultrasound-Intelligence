@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="logo.jpeg" alt="WombCare Logo" width="130" style="border-radius: 20px; box-shadow: 0 4px 20px rgba(233,30,140,0.15);" />
+<img src="logo.png" alt="WombCare Logo" width="130" style="border-radius: 20px; box-shadow: 0 4px 20px rgba(233,30,140,0.15);" />
 
 # WombCare · Fetal Ultrasound Intelligence & Pregnancy Support
 
@@ -157,11 +157,11 @@ flowchart TD
 │       ├── evidence.jsonl        # 1,445 cited clinical evidence excerpts
 │       └── sources.jsonl         # 68 primary clinical publications & guidelines
 ├── static/
-│   └── logo.jpeg                 # Official logo asset for web serving
+│   └── logo.png                 # Official logo asset for web serving
 ├── api.py                        # FastAPI production REST backend
 ├── app.py                        # Streamlit executive medical dashboard
 ├── index_rag.py                  # Knowledge base indexer (FTS5 / ChromaDB / OpenAI)
-├── logo.jpeg                     # Official WombCare logo
+├── logo.png                     # Official WombCare logo
 ├── pipeline1_ingestion.py        # Cine-loop sampling and image validation
 ├── pipeline2_rag.py              # Clinical RAG retrieval & evidence formatting
 ├── pipeline3_fusion.py           # Clinical system prompts & GPT-4o multimodal inference

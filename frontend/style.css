@@ -1650,3 +1650,13 @@ tbody td:first-child { font-weight: 600; color: var(--ink); }
   border: 1px solid #e9d5ff;
 }
 
+
+.nav-logo-img, .nav-logo img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(233,30,140,0.25);
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -21,8 +21,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_URL = os.getenv("API_URL", "http://localhost:8000").rstrip("/")
-LOGO_PATH = os.path.join(os.path.dirname(__file__), "logo.jpeg")
+LOGO_PNG = os.path.join(os.path.dirname(__file__), "logo.png")
+LOGO_JPEG = os.path.join(os.path.dirname(__file__), "logo.jpeg")
+LOGO_PATH = LOGO_PNG if os.path.exists(LOGO_PNG) else LOGO_JPEG
 LOGO_B64 = ""
+LOGO_MIME = "image/png" if LOGO_PATH.endswith(".png") else "image/jpeg"
 if os.path.exists(LOGO_PATH):
     try:
         with open(LOGO_PATH, "rb") as f:
@@ -568,7 +571,7 @@ else:
     status_badge = '<span class="badge badge-offline"><span class="dot dot-off"></span>Offline</span>'
 
 logo_display = (
-    f'<img src="data:image/jpeg;base64,{LOGO_B64}" class="wc-logo-img" alt="WombCare Logo" />'
+    f'<img src="data:{LOGO_MIME};base64,{LOGO_B64}" class="wc-logo-img" alt="WombCare Logo" />'
     if LOGO_B64 else '<div class="wc-logo">🌸</div>'
 )
 
