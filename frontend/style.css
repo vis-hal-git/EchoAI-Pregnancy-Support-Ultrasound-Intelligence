@@ -1652,11 +1652,21 @@ tbody td:first-child { font-weight: 600; color: var(--ink); }
 
 
 .nav-logo-img, .nav-logo img {
-  width: 32px;
-  height: 32px;
+  height: 40px;
+  width: auto;
+  max-width: 170px;
   border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 2px 6px rgba(233,30,140,0.25);
+  object-fit: contain;
+  box-shadow: 0 2px 8px rgba(233,30,140,0.18);
   display: inline-block;
   vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+.nav-logo:hover .nav-logo-img {
+  transform: scale(1.03);
+}
+.footer-brand .nav-logo-img {
+  height: 42px;
+  width: auto;
+  margin-bottom: 8px;
 }

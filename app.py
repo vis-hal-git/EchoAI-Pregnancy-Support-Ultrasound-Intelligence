@@ -135,10 +135,11 @@ section[data-testid="stSidebar"] {
 }
 
 .wc-logo-img {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    object-fit: cover;
+    height: 44px;
+    width: auto;
+    max-width: 180px;
+    border-radius: 8px;
+    object-fit: contain;
     box-shadow: var(--shadow);
     border: 1.5px solid var(--border);
     flex-shrink: 0;
@@ -580,7 +581,7 @@ st.markdown(f"""
     <div class="wc-brand">
         {logo_display}
         <div>
-            <div class="wc-title">WombCare · Pregnancy & Ultrasound Intelligence</div>
+            <div class="wc-title">Pregnancy & Ultrasound Intelligence</div>
             <div class="wc-subtitle">Multimodal fetal assessment grounded in clinical ultrasound data (`rag-only`)</div>
         </div>
     </div>
