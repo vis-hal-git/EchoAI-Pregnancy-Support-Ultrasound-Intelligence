@@ -77,7 +77,7 @@ function initTypewriter() {
 
   const phrases = el.dataset.phrases
     ? JSON.parse(el.dataset.phrases)
-    : ['Fetal Ultrasound Intelligence', 'Pregnancy Decision Support', 'Powered by GPT-4o Vision'];
+    : ['Fetal Ultrasound Intelligence', 'Pregnancy Decision Support', 'Multimodal Ultrasound AI'];
 
   let phraseIdx = 0;
   let charIdx   = 0;
@@ -336,7 +336,7 @@ document.querySelectorAll(
     const steps = [
       'Consulting clinical knowledge base (rag-only)...',
       'Ingesting scan & processing keyframes...',
-      'Executing GPT-4o multimodal reasoning...',
+      'Executing multimodal AI reasoning...',
       'Validating ISUOG planes & biometry...',
       'Structuring final assessment report...'
     ];
