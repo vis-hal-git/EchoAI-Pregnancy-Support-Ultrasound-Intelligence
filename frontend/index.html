@@ -30,7 +30,7 @@
         <img src="logo.png" alt="WombCare Logo" class="nav-logo-img"></a>
       <ul class="nav-links" role="list">
         <li><a href="index.html">Home</a></li>
-        <li><a href="#analyzer" style="color:var(--rose); font-weight:600;">🌸 Live Analyzer</a></li>
+        <li><a href="analyzer.html" style="color:var(--rose); font-weight:600;">🌸 Live Analyzer</a></li>
         <li><a href="technology.html">Technology</a></li>
         <li><a href="clinical-guidelines.html">Guidelines</a></li>
         <li><a href="rag-knowledge.html">Knowledge Base</a></li>
@@ -45,6 +45,7 @@
   <!-- MOBILE DRAWER -->
   <nav class="nav-drawer" aria-label="Mobile navigation">
     <a href="index.html">🏠 Home</a>
+    <a href="analyzer.html">🌸 Live Analyzer</a>
     <a href="technology.html">⚙️ Technology</a>
     <a href="clinical-guidelines.html">🏥 Guidelines</a>
     <a href="rag-knowledge.html">📚 Knowledge Base</a>
@@ -78,7 +79,7 @@
         </p>
 
         <div class="hero-ctas">
-          <a href="#analyzer" class="btn btn-primary">🌸 Launch Live Analyzer ↓</a>
+          <a href="analyzer.html" class="btn btn-primary">🌸 Launch Live Analyzer ↓</a>
           <a href="technology.html" class="btn btn-outline">⚙️ Technology Stack</a>
         </div>
       </div>
@@ -114,115 +115,41 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════════
-     LIVE CLINICAL SCAN ANALYZER
+     LIVE ANALYZER CTA
      ══════════════════════════════════════════════════════════ -->
-  <section class="section analyzer-section" id="analyzer" aria-labelledby="analyzer-heading">
-    <div class="container">
-      <div
-        style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:1.5rem; flex-wrap:wrap; gap:12px;">
-        <div>
-          <span class="section-label">Interactive AI Diagnostics</span>
-          <h2 class="section-title" id="analyzer-heading" style="margin-bottom:0.4rem;">Live Clinical Scan Analyzer</h2>
-          <p class="section-sub" style="margin-bottom:0;">Upload an ultrasound scan or cine-loop video to generate an
-            evidence-grounded report.</p>
-        </div>
-        <div id="backend-status-pill" class="status-pill status-checking">
-          <span class="status-dot"></span> <span id="backend-status-text">Checking AI Backend...</span>
-        </div>
+  <section class="section" id="analyzer" aria-label="Live Analyzer call to action"
+    style="background: linear-gradient(135deg, var(--blush) 0%, #f0e8ff 100%);">
+    <div class="container" style="text-align:center;">
+      <span class="section-label">Interactive AI Diagnostics</span>
+      <h2 class="section-title fade-up">Live Clinical Scan Analyzer</h2>
+      <p class="section-sub fade-up delay-1">
+        Upload a fetal ultrasound scan or cine-loop video and receive an evidence-grounded clinical report
+        in seconds — powered by GPT-4o Vision and 1,520 curated clinical records.
+      </p>
+      <div class="fade-up delay-2" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:2rem;">
+        <a href="analyzer.html" class="btn btn-primary" style="font-size:1.05rem; padding:14px 32px;">
+          🌸 Open Live Analyzer
+        </a>
+        <a href="technology.html" class="btn btn-outline" style="font-size:1.05rem; padding:14px 28px;">
+          ⚙️ How It Works
+        </a>
       </div>
-
-      <div class="analyzer-grid">
-        <!-- Left: Upload & Controls -->
-        <div class="analyzer-card upload-card">
-          <h3 style="font-size:1.15rem; margin-bottom:0.75rem; display:flex; align-items:center; gap:8px;">
-            <span>📁</span> Upload Ultrasound Scan
-          </h3>
-
-          <div class="drop-zone" id="drop-zone">
-            <input type="file" id="file-input" accept="image/*,video/*" style="display:none;" />
-            <div id="drop-prompt">
-              <div style="font-size:2.4rem; margin-bottom:8px;">🩺</div>
-              <p style="font-weight:600; color:var(--ink); margin-bottom:4px;">Drag &amp; Drop scan here, or <span
-                  style="color:var(--rose); text-decoration:underline;">Browse</span></p>
-              <p style="font-size:0.82rem; color:var(--ink-soft);">Supports 2D/3D scans (.png, .jpg, .jpeg) &amp;
-                cine-loops (.mp4, .avi)</p>
-            </div>
-            <div id="preview-wrap" style="display:none; text-align:center;">
-              <img id="preview-img"
-                style="max-height:220px; max-width:100%; border-radius:10px; margin-bottom:8px; display:none; object-fit:contain;" />
-              <video id="preview-vid" controls
-                style="max-height:220px; max-width:100%; border-radius:10px; margin-bottom:8px; display:none;"></video>
-              <div id="file-meta" style="font-size:0.82rem; color:var(--ink-soft); font-weight:500;"></div>
-              <button type="button" id="change-file-btn" class="btn btn-outline"
-                style="padding:4px 12px; font-size:0.8rem; margin-top:6px;">Change File</button>
-            </div>
-          </div>
-
-          
-
-          <div style="margin-top:1.25rem; display:flex; gap:10px;">
-            <button id="analyze-btn" class="btn btn-primary" style="flex:1; justify-content:center;">
-              <span>🌸 Upload &amp; Generate Report</span>
-            </button>
-            <button id="reset-btn" class="btn btn-outline" style="padding:10px 16px;">
-              <span>↩ Reset</span>
-            </button>
-          </div>
-
-          <div id="analysis-progress"
-            style="display:none; margin-top:1rem; padding:12px 14px; background:var(--blush); border:1px solid var(--border); border-radius:12px;">
-            <div
-              style="display:flex; align-items:center; gap:10px; font-size:0.85rem; color:var(--rose-deep); font-weight:600;">
-              <span class="spinner-ring"></span>
-              <span id="progress-text">Consulting clinical knowledge base (rag-only)...</span>
-            </div>
-          </div>
+      <div style="display:flex; justify-content:center; gap:2.5rem; margin-top:2.5rem; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-size:1.8rem; font-weight:700; color:var(--rose);">GPT-4o</div>
+          <div style="font-size:0.82rem; color:var(--ink-soft);">Vision Model</div>
         </div>
-
-        <!-- Right: Detailed Report & Chat -->
-        <div class="analyzer-card report-card" id="report-card">
-          <div id="report-empty" style="text-align:center; padding:3rem 1.5rem; color:var(--ink-soft);">
-            <div style="font-size:3rem; margin-bottom:1rem; opacity:0.8;">📋</div>
-            <h4 style="font-size:1.15rem; color:var(--ink); margin-bottom:6px;">No Assessment Report Generated Yet</h4>
-            <p style="font-size:0.88rem; max-width:400px; margin:0 auto;">
-              Upload an ultrasound scan on the left and click <strong>Upload &amp; Generate Report</strong> to trigger
-              the multimodal vision and RAG pipeline.
-            </p>
-          </div>
-
-          <div id="report-content" style="display:none;">
-            <!-- Triage Banner -->
-            <div id="triage-banner" class="triage-banner banner-gravid">
-              <div id="triage-title" style="font-size:1.05rem; font-weight:700; margin-bottom:2px;">🤰 PREGNANCY
-                DETECTED (GRAVID)</div>
-              <div id="triage-sub" style="font-size:0.86rem; opacity:0.9;">Obstetric anatomical structures identified
-                and grounded in ISUOG screening guidelines.</div>
-            </div>
-
-            <!-- Report Actions -->
-            <div
-              style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:8px;">
-              <div style="font-size:0.82rem; color:var(--ink-soft);" id="report-meta">Session ID: •••</div>
-              <div style="display:flex; gap:8px;">
-                <button id="download-report-btn" class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;">
-                  📥 Download Report (.md)
-                </button>
-              </div>
-            </div>
-
-            <!-- Formatted Markdown Report -->
-            <div id="report-body" class="report-markdown-body"></div>
-
-            <!-- Citations Accordion -->
-            <div id="citations-section" style="margin-top:1.5rem; display:none;">
-              <h4
-                style="font-size:0.95rem; margin-bottom:0.6rem; color:var(--ink); display:flex; align-items:center; gap:6px;">
-                <span>📚</span> Clinical Knowledge Base Citations (<span id="citation-count">0</span>)
-              </h4>
-              <div id="citations-list" class="citations-container"></div>
-            </div>
-
-            </div>
+        <div style="text-align:center;">
+          <div style="font-size:1.8rem; font-weight:700; color:var(--rose);">1,520</div>
+          <div style="font-size:0.82rem; color:var(--ink-soft);">Clinical Records</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:1.8rem; font-weight:700; color:var(--rose);">3</div>
+          <div style="font-size:0.82rem; color:var(--ink-soft);">RAG Backends</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:1.8rem; font-weight:700; color:var(--rose);">ISUOG</div>
+          <div style="font-size:0.82rem; color:var(--ink-soft);">Compliant</div>
         </div>
       </div>
     </div>
@@ -389,6 +316,7 @@
           <h5>Pages</h5>
           <ul>
             <li><a href="index.html">Home</a></li>
+            <li><a href="analyzer.html">Live Analyzer</a></li>
             <li><a href="technology.html">Technology</a></li>
             <li><a href="clinical-guidelines.html">Guidelines</a></li>
             <li><a href="rag-knowledge.html">Knowledge Base</a></li>

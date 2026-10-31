@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Analyzer — WombCare</title>
+  <meta name="description"
+    content="WombCare Live Clinical Scan Analyzer — upload a fetal ultrasound scan to generate an evidence-grounded AI report instantly." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+
+  <!-- SKELETON LOADER -->
+  <div class="skeleton-overlay" role="status" aria-label="Loading WombCare">
+    <div class="skeleton-logo">🌸</div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="WombCare home">
+        <img src="logo.png" alt="WombCare Logo" class="nav-logo-img"></a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="analyzer.html" style="color:var(--rose); font-weight:600;">🌸 Live Analyzer</a></li>
+        <li><a href="technology.html">Technology</a></li>
+        <li><a href="clinical-guidelines.html">Guidelines</a></li>
+        <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <nav class="nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">🏠 Home</a>
+    <a href="analyzer.html">🌸 Live Analyzer</a>
+    <a href="technology.html">⚙️ Technology</a>
+    <a href="clinical-guidelines.html">🏥 Guidelines</a>
+    <a href="rag-knowledge.html">📚 Knowledge Base</a>
+    <a href="about.html">👤 About</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE HERO
+       ═══════════════════════════════════════════════════════ -->
+  <section class="page-hero" aria-label="Analyzer page hero">
+    <div class="container">
+      <span class="section-label">Interactive AI Diagnostics</span>
+      <h1 class="page-hero-title">Live Clinical Scan Analyzer</h1>
+      <p class="page-hero-sub">
+        Upload a fetal ultrasound scan or cine-loop video and receive an evidence-grounded clinical report
+        in seconds — powered by GPT-4o Vision and 1,520 curated clinical records.
+      </p>
+
+      <!-- Backend Status -->
+      <div id="backend-status-pill" class="status-pill status-checking" style="display:inline-flex; margin-top:1rem;">
+        <span class="status-dot"></span> <span id="backend-status-text">Checking AI Backend...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ANALYZER GRID
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section analyzer-section" id="analyzer" aria-labelledby="analyzer-heading">
+    <div class="container">
+
+      <div class="analyzer-grid">
+
+        <!-- ── LEFT: Upload & Controls ── -->
+        <div class="analyzer-card upload-card">
+          <h3 style="font-size:1.15rem; margin-bottom:0.75rem; display:flex; align-items:center; gap:8px;">
+            <span>📁</span> Upload Ultrasound Scan
+          </h3>
+
+          <div class="drop-zone" id="drop-zone">
+            <input type="file" id="file-input" accept="image/*,video/*" style="display:none;" />
+            <div id="drop-prompt">
+              <div style="font-size:2.4rem; margin-bottom:8px;">🩺</div>
+              <p style="font-weight:600; color:var(--ink); margin-bottom:4px;">Drag &amp; Drop scan here, or <span
+                  style="color:var(--rose); text-decoration:underline;">Browse</span></p>
+              <p style="font-size:0.82rem; color:var(--ink-soft);">Supports 2D/3D scans (.png, .jpg, .jpeg) &amp;
+                cine-loops (.mp4, .avi)</p>
+            </div>
+            <div id="preview-wrap" style="display:none; text-align:center;">
+              <img id="preview-img"
+                style="max-height:220px; max-width:100%; border-radius:10px; margin-bottom:8px; display:none; object-fit:contain;" />
+              <video id="preview-vid" controls
+                style="max-height:220px; max-width:100%; border-radius:10px; margin-bottom:8px; display:none;"></video>
+              <div id="file-meta" style="font-size:0.82rem; color:var(--ink-soft); font-weight:500;"></div>
+              <button type="button" id="change-file-btn" class="btn btn-outline"
+                style="padding:4px 12px; font-size:0.8rem; margin-top:6px;">Change File</button>
+            </div>
+          </div>
+
+          <div style="margin-top:1.25rem; display:flex; gap:10px;">
+            <button id="analyze-btn" class="btn btn-primary" style="flex:1; justify-content:center;">
+              <span>🌸 Upload &amp; Generate Report</span>
+            </button>
+            <button id="reset-btn" class="btn btn-outline" style="padding:10px 16px;">
+              <span>↩ Reset</span>
+            </button>
+          </div>
+
+          <div id="analysis-progress"
+            style="display:none; margin-top:1rem; padding:12px 14px; background:var(--blush); border:1px solid var(--border); border-radius:12px;">
+            <div
+              style="display:flex; align-items:center; gap:10px; font-size:0.85rem; color:var(--rose-deep); font-weight:600;">
+              <span class="spinner-ring"></span>
+              <span id="progress-text">Consulting clinical knowledge base (rag-only)...</span>
+            </div>
+          </div>
+
+          <!-- Info panel -->
+          <div style="margin-top:1.5rem; padding:14px 16px; background:var(--blush); border-radius:12px; border:1px solid var(--border);">
+            <h4 style="font-size:0.9rem; font-weight:600; color:var(--rose-deep); margin-bottom:8px;">⚡ What happens when you click Generate?</h4>
+            <ol style="font-size:0.82rem; color:var(--ink-soft); padding-left:1.1rem; line-height:1.8; margin:0;">
+              <li>Scan is sent to the GPT-4o Vision pipeline</li>
+              <li>3 RAG backends query 1,520 clinical records</li>
+              <li>Multimodal fusion produces a structured report</li>
+              <li>ISUOG guideline citations are attached</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- ── RIGHT: Report Panel ── -->
+        <div class="analyzer-card report-card" id="report-card">
+          <div id="report-empty" style="text-align:center; padding:3rem 1.5rem; color:var(--ink-soft);">
+            <div style="font-size:3rem; margin-bottom:1rem; opacity:0.8;">📋</div>
+            <h4 style="font-size:1.15rem; color:var(--ink); margin-bottom:6px;">No Assessment Report Generated Yet</h4>
+            <p style="font-size:0.88rem; max-width:400px; margin:0 auto;">
+              Upload an ultrasound scan on the left and click <strong>Upload &amp; Generate Report</strong> to trigger
+              the multimodal vision and RAG pipeline.
+            </p>
+          </div>
+
+          <div id="report-content" style="display:none;">
+            <!-- Triage Banner -->
+            <div id="triage-banner" class="triage-banner banner-gravid">
+              <div id="triage-title" style="font-size:1.05rem; font-weight:700; margin-bottom:2px;">🤰 PREGNANCY
+                DETECTED (GRAVID)</div>
+              <div id="triage-sub" style="font-size:0.86rem; opacity:0.9;">Obstetric anatomical structures identified
+                and grounded in ISUOG screening guidelines.</div>
+            </div>
+
+            <!-- Report Actions -->
+            <div
+              style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:8px;">
+              <div style="font-size:0.82rem; color:var(--ink-soft);" id="report-meta">Session ID: •••</div>
+              <div style="display:flex; gap:8px;">
+                <button id="download-report-btn" class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;">
+                  📥 Download Report (.md)
+                </button>
+              </div>
+            </div>
+
+            <!-- Formatted Markdown Report -->
+            <div id="report-body" class="report-markdown-body"></div>
+
+            <!-- Citations Accordion -->
+            <div id="citations-section" style="margin-top:1.5rem; display:none;">
+              <h4
+                style="font-size:0.95rem; margin-bottom:0.6rem; color:var(--ink); display:flex; align-items:center; gap:6px;">
+                <span>📚</span> Clinical Knowledge Base Citations (<span id="citation-count">0</span>)
+              </h4>
+              <div id="citations-list" class="citations-container"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HOW IT WORKS — compact inline
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section" style="padding-top:0;" aria-label="How it works">
+    <div class="container">
+      <div style="background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:2rem 2.5rem;">
+        <span class="section-label">Workflow</span>
+        <h2 class="section-title" style="margin-bottom:0.5rem;">How WombCare Analyzes Your Scan</h2>
+        <p class="section-sub" style="margin-bottom:1.5rem;">From image upload to structured clinical report in seconds.</p>
+        <div class="how-steps" role="list">
+          <div class="how-step fade-up" role="listitem">
+            <div class="how-step-icon" aria-hidden="true">📤</div>
+            <h4>Upload Scan</h4>
+            <p>Submit a fetal ultrasound image or cine-loop video via drag-and-drop or file browser.</p>
+          </div>
+          <div class="how-arrow" aria-hidden="true">
+            <div class="how-arrow-line"></div>
+            <span class="how-arrow-head">›</span>
+          </div>
+          <div class="how-step fade-up delay-2" role="listitem">
+            <div class="how-step-icon" aria-hidden="true">🔍</div>
+            <h4>AI Analyses &amp; Retrieves</h4>
+            <p>GPT-4o Vision reads the scan while three RAG backends fetch the most relevant clinical guidelines.</p>
+          </div>
+          <div class="how-arrow" aria-hidden="true">
+            <div class="how-arrow-line"></div>
+            <span class="how-arrow-head">›</span>
+          </div>
+          <div class="how-step fade-up delay-4" role="listitem">
+            <div class="how-step-icon" aria-hidden="true">📄</div>
+            <h4>Get Detailed Report</h4>
+            <p>Receive a structured 8-part clinical report with triage classification, biometrics, and cited evidence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo"><img src="logo.png" alt="WombCare Logo" class="nav-logo-img"></div>
+          <p>Multimodal AI for Fetal Ultrasound Intelligence &amp; Pregnancy Support</p>
+        </div>
+        <div class="footer-col">
+          <h5>Pages</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="analyzer.html">Live Analyzer</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="clinical-guidelines.html">Guidelines</a></li>
+            <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="footer-tech">Built with GPT-4o Vision &amp; FastAPI</p>
+          <a href="https://github.com/vishalhaldar" class="footer-badge" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        © 2024 <span>Vishal Haldar</span> · WombCare · Clinical Decision-Support AI
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

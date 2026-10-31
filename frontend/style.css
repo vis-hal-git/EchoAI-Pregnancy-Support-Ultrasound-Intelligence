@@ -652,6 +652,19 @@ p  { color: var(--ink-soft); max-width: 65ch; }
 .page-hero-icon { font-size: 3.5rem; margin-bottom: 16px; display: block; }
 .page-hero h1 { margin-bottom: 16px; }
 .page-hero p  { max-width: 55ch; margin: 0 auto; font-size: 1.05rem; }
+.page-hero-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+.page-hero-sub {
+  max-width: 60ch;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
 
 /* ────────────────────────────────────────────────────────────
    TECHNOLOGY PAGE
