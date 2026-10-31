@@ -35,7 +35,7 @@
   --shadow-md:  0 8px 32px rgba(233,30,140,.12);
   --shadow-lg:  0 20px 60px rgba(233,30,140,.16);
 
-  --nav-h: 72px;
+  --nav-h: 82px;
   --transition: 0.3s cubic-bezier(.4,0,.2,1);
 }
 
@@ -157,8 +157,11 @@ p  { color: var(--ink-soft); max-width: 65ch; }
   transition: height var(--transition), box-shadow var(--transition);
 }
 .navbar.scrolled {
-  height: 60px;
+  height: 68px;
   box-shadow: 0 4px 24px rgba(233,30,140,.1);
+}
+.navbar.scrolled .nav-logo-img {
+  height: 52px;
 }
 .nav-inner {
   max-width: 1200px;
@@ -1665,22 +1668,22 @@ tbody td:first-child { font-weight: 600; color: var(--ink); }
 
 
 .nav-logo-img, .nav-logo img {
-  height: 52px;
+  height: 62px;
   width: auto;
-  max-width: 220px;
+  max-width: 260px;
   border-radius: 8px;
   object-fit: contain;
   box-shadow: 0 2px 8px rgba(233,30,140,0.18);
   display: inline-block;
   vertical-align: middle;
-  transition: transform 0.2s ease;
+  transition: height var(--transition), transform 0.2s ease;
 }
 .nav-logo:hover .nav-logo-img {
   transform: scale(1.03);
 }
 .footer-brand .nav-logo-img {
-  height: 54px;
+  height: 66px;
   width: auto;
-  max-width: 220px;
+  max-width: 260px;
   margin-bottom: 8px;
 }
