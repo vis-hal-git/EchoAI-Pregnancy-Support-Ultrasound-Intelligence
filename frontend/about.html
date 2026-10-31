@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — WombCare</title>
+  <meta name="description" content="About WombCare — built by Vishal Haldar as an internship project in AI engineering. Clinical decision-support for fetal ultrasound powered by GPT-4o." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="skeleton-overlay" role="status" aria-label="Loading"><div class="skeleton-logo">🌸</div></div>
+
+<!-- NAV -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>🌸</span> WombCare</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#analyzer" style="color:var(--rose); font-weight:600;">🌸 Live Analyzer</a></li>
+      <li><a href="technology.html">Technology</a></li>
+      <li><a href="system-prompts.html">System Prompts</a></li>
+      <li><a href="clinical-guidelines.html">Guidelines</a></li>
+      <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="nav-drawer" aria-label="Mobile navigation">
+  <a href="index.html">🏠 Home</a>
+  <a href="technology.html">⚙️ Technology</a>
+  <a href="system-prompts.html">📋 System Prompts</a>
+  <a href="clinical-guidelines.html">🏥 Guidelines</a>
+  <a href="rag-knowledge.html">📚 Knowledge Base</a>
+  <a href="about.html">👤 About</a>
+</nav>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="container">
+    <span class="page-hero-icon" aria-hidden="true">🌸</span>
+    <h1 class="fade-up">About <span class="gradient-text">WombCare</span></h1>
+    <p class="fade-up delay-1">
+      An internship-born AI system that demonstrates how multimodal large language models can be
+      safely grounded in clinical evidence for obstetric decision support.
+    </p>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     PROJECT OVERVIEW
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--card-white);" aria-labelledby="overview-heading">
+  <div class="container">
+    <span class="section-label">The Project</span>
+    <h2 class="section-title fade-up" id="overview-heading">What WombCare is and why it matters</h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:40px;" class="fade-up delay-1">
+      <div>
+        <h3 style="margin-bottom:16px;">The clinical problem</h3>
+        <p style="margin-bottom:16px;">
+          Fetal ultrasound is the cornerstone of obstetric care — yet access to experienced sonographers
+          is uneven, scan interpretation is variable, and follow-up communication between providers and
+          patients often lacks the specificity that modern clinical practice demands.
+        </p>
+        <p>
+          In low-resource settings, a single scan may be read by a general practitioner rather than a
+          specialist. Even in well-resourced hospitals, junior staff performing out-of-hours scans benefit
+          enormously from structured decision support that surfaces the right clinical guideline at the
+          right moment.
+        </p>
+      </div>
+      <div>
+        <h3 style="margin-bottom:16px;">WombCare's approach</h3>
+        <p style="margin-bottom:16px;">
+          WombCare does not attempt to replace the sonographer. Instead, it acts as a second reader —
+          an AI assistant that has digested 1,520 clinical records, 68 peer-reviewed papers, and the
+          full ISUOG cardiac and neurosonogram screening protocols, and can apply them consistently
+          to any uploaded scan within seconds.
+        </p>
+        <p>
+          Every statement in a WombCare report is tied to a specific record in the knowledge base.
+          The medico-legal guardrails built into the Master Fusion Prompt ensure the system never
+          oversteps its role as a decision-support tool.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     DEVELOPER CARD
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--blush);" aria-labelledby="dev-heading">
+  <div class="container">
+    <span class="section-label">The Builder</span>
+    <h2 class="section-title fade-up" id="dev-heading">Developer</h2>
+
+    <div class="dev-card fade-up delay-1">
+      <div class="dev-avatar" aria-hidden="true">👨‍💻</div>
+      <div class="dev-info">
+        <h3>Vishal Haldar</h3>
+        <div class="dev-role">AI Engineer &amp; Full-Stack Developer — Internship Project</div>
+        <p style="max-width:60ch;">
+          Vishal designed and built WombCare from scratch as part of an AI engineering internship —
+          covering system architecture, RAG pipeline engineering, clinical prompt design, API development,
+          and front-end delivery. The project demonstrates a production-grade approach to responsible
+          AI deployment in a sensitive medical domain.
+        </p>
+        <div class="dev-skills" role="list" aria-label="Skills used">
+          <span class="dev-skill" role="listitem">Python</span>
+          <span class="dev-skill" role="listitem">FastAPI</span>
+          <span class="dev-skill" role="listitem">OpenAI APIs</span>
+          <span class="dev-skill" role="listitem">RAG Engineering</span>
+          <span class="dev-skill" role="listitem">Streamlit</span>
+          <span class="dev-skill" role="listitem">Prompt Engineering</span>
+          <span class="dev-skill" role="listitem">ChromaDB</span>
+          <span class="dev-skill" role="listitem">SQLite FTS5</span>
+          <span class="dev-skill" role="listitem">OpenCV</span>
+          <span class="dev-skill" role="listitem">HTML/CSS/JS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     TIMELINE
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--card-white);" aria-labelledby="timeline-heading">
+  <div class="container">
+    <span class="section-label">Build Journey</span>
+    <h2 class="section-title fade-up" id="timeline-heading">Project Timeline</h2>
+    <p class="section-sub fade-up delay-1">
+      Six development phases from initial design to production deployment.
+    </p>
+
+    <div class="timeline fade-up delay-2" role="list">
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-content">
+          <h4>System Design &amp; Architecture</h4>
+          <p>Defined the three-pipeline architecture, selected the technology stack, and scoped clinical requirements against ISUOG guidelines. Designed the knowledge base schema across six JSONL datasets.</p>
+        </div>
+        <div class="timeline-dot" aria-hidden="true">🏗️</div>
+        <div class="timeline-content" style="visibility:hidden;" aria-hidden="true"></div>
+      </div>
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-content" style="visibility:hidden;" aria-hidden="true"></div>
+        <div class="timeline-dot" aria-hidden="true">⚙️</div>
+        <div class="timeline-content">
+          <h4>Pipeline Engineering</h4>
+          <p>Built the Vision Ingestion pipeline (OpenCV preprocessing, quality scoring), the FastAPI REST layer, and the Streamlit user interface. Integrated base64 image transport to the OpenAI API.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-content">
+          <h4>RAG Indexing</h4>
+          <p>Curated 1,520 clinical records from 68 papers and indexed them across all three retrieval backends: SQLite FTS5, ChromaDB (local), and OpenAI Vector Store. Implemented Reciprocal Rank Fusion for result merging.</p>
+        </div>
+        <div class="timeline-dot" aria-hidden="true">📚</div>
+        <div class="timeline-content" style="visibility:hidden;" aria-hidden="true"></div>
+      </div>
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-content" style="visibility:hidden;" aria-hidden="true"></div>
+        <div class="timeline-dot" aria-hidden="true">🎨</div>
+        <div class="timeline-content">
+          <h4>UI Development</h4>
+          <p>Designed and shipped the Streamlit interface for scan upload and multi-turn consultation, plus this full six-page marketing website with shared design system, animations, and responsive layout.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-content">
+          <h4>Clinical Prompt Architecture</h4>
+          <p>Engineered the 3-tier system prompt system: Vision Prompt for image quality and plane recognition, RAG Grounding Prompt for threshold validation, and Master Fusion Prompt for structured report generation and medico-legal guardrails.</p>
+        </div>
+        <div class="timeline-dot" aria-hidden="true">📋</div>
+        <div class="timeline-content" style="visibility:hidden;" aria-hidden="true"></div>
+      </div>
+
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-content" style="visibility:hidden;" aria-hidden="true"></div>
+        <div class="timeline-dot" aria-hidden="true">🚀</div>
+        <div class="timeline-content">
+          <h4>Production Deployment</h4>
+          <p>End-to-end testing against clinical scenarios, performance benchmarking, error-state handling, and documentation. Packaged for deployment with uvicorn and published to GitHub.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     GITHUB CTA
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--blush);" aria-labelledby="github-heading">
+  <div class="container">
+    <h2 class="section-title fade-up" id="github-heading" style="margin-bottom:0;">Explore the codebase</h2>
+
+    <div class="github-card fade-up delay-1">
+      <div class="github-info">
+        <h3>🌸 WombCare — GitHub Repository</h3>
+        <p>Complete source: FastAPI backend, Streamlit UI, RAG indexing scripts, six-dataset knowledge base, clinical prompt architecture, and this website.</p>
+        <div class="github-badges">
+          <span class="gh-badge">Python 3.11</span>
+          <span class="gh-badge">FastAPI</span>
+          <span class="gh-badge">GPT-4o Vision</span>
+          <span class="gh-badge">ChromaDB</span>
+          <span class="gh-badge">MIT License</span>
+        </div>
+      </div>
+      <div class="github-cta">
+        <a href="https://github.com/vishalhaldar" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-github" aria-hidden="true"></i> View on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     DISCLAIMER
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--card-white);padding-top:0;" aria-labelledby="disclaimer-heading">
+  <div class="container">
+    <div class="disclaimer fade-up" role="note" aria-labelledby="disclaimer-heading">
+      <span class="disclaimer-icon" aria-hidden="true">⚠️</span>
+      <div>
+        <h4 id="disclaimer-heading">Medical Disclaimer</h4>
+        <p>
+          WombCare is a clinical decision-support tool developed for educational and research purposes as part of an AI engineering internship.
+          It is <strong>not</strong> a licensed medical device, and its outputs must not be used as the sole basis for any clinical decision.
+          All AI-generated reports must be reviewed, verified, and authorised by a qualified sonographer, obstetrician, or other appropriately
+          credentialled healthcare professional before any clinical action is taken. WombCare does not store patient data, does not provide a
+          definitive diagnosis, and expressly prohibits use as a replacement for professional medical judgement.
+          The developer and associated institution accept no liability for clinical outcomes arising from misuse of this system.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span>🌸</span> WombCare</div>
+        <p>Multimodal AI for Fetal Ultrasound Intelligence &amp; Pregnancy Support</p>
+      </div>
+      <div class="footer-col">
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="system-prompts.html">System Prompts</a></li>
+          <li><a href="clinical-guidelines.html">Guidelines</a></li>
+          <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-tech">Built with GPT-4o Vision &amp; FastAPI</p>
+        <a href="https://github.com/vishalhaldar" class="footer-badge" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-github" aria-hidden="true"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">© 2024 <span>Vishal Haldar</span> · WombCare · Clinical Decision-Support AI</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

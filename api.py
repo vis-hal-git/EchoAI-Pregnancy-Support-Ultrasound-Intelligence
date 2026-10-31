@@ -22,6 +22,8 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from pipeline1_ingestion import IMAGE_EXTS, VIDEO_EXTS, ingest_image, ingest_video
 from pipeline2_rag import retrieve
 from pipeline3_fusion import extract_cited_excerpts, run_inference
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 
 load_dotenv()
 
@@ -156,3 +158,10 @@ def get_citations(session_id: str):
 def clear_session(session_id: str):
     _sessions.pop(session_id, None)
     return {"cleared": session_id}
+
+
+# ── Mount Frontend Static Web Directory ────────────────────────────────────
+FRONTEND_DIR = Path(__file__).parent / "frontend"
+if FRONTEND_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
+

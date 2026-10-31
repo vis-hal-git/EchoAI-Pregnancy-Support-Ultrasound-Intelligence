@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Prompts — WombCare</title>
+  <meta name="description" content="WombCare's 3-tier clinical system prompt architecture: Vision, RAG Grounding, and Master Fusion prompts." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="skeleton-overlay" role="status" aria-label="Loading"><div class="skeleton-logo">🌸</div></div>
+
+<!-- NAV -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>🌸</span> WombCare</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#analyzer" style="color:var(--rose); font-weight:600;">🌸 Live Analyzer</a></li>
+      <li><a href="technology.html">Technology</a></li>
+      <li><a href="system-prompts.html">System Prompts</a></li>
+      <li><a href="clinical-guidelines.html">Guidelines</a></li>
+      <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="nav-drawer" aria-label="Mobile navigation">
+  <a href="index.html">🏠 Home</a>
+  <a href="technology.html">⚙️ Technology</a>
+  <a href="system-prompts.html">📋 System Prompts</a>
+  <a href="clinical-guidelines.html">🏥 Guidelines</a>
+  <a href="rag-knowledge.html">📚 Knowledge Base</a>
+  <a href="about.html">👤 About</a>
+</nav>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="container">
+    <span class="page-hero-icon" aria-hidden="true">📋</span>
+    <h1 class="fade-up">3-Tier Clinical <span class="gradient-text">System Prompt</span> Architecture</h1>
+    <p class="fade-up delay-1">
+      Three specialised system prompts orchestrate GPT-4o's behaviour at each stage of ultrasound analysis —
+      from image inspection to evidence grounding to final report generation.
+    </p>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     ACCORDION TIERS
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--card-white);" aria-labelledby="tiers-heading">
+  <div class="container">
+    <span class="section-label">Prompt Design</span>
+    <h2 class="section-title fade-up" id="tiers-heading">The Three Prompt Tiers</h2>
+    <p class="section-sub fade-up delay-1">Click any tier to expand its full specification.</p>
+
+    <div class="fade-up delay-2">
+
+      <!-- TIER 1 -->
+      <div class="accordion-item open" role="region" aria-labelledby="tier1-header">
+        <div class="accordion-header" id="tier1-header" role="button" tabindex="0" aria-expanded="true">
+          <div class="accordion-header-left">
+            <div class="accordion-tier tier-1" aria-hidden="true">1</div>
+            <div class="accordion-title">
+              <h3>Tier 1 — Vision System Prompt</h3>
+              <p>Image Quality Auditing &amp; Standard Plane Recognition</p>
+            </div>
+          </div>
+          <div class="accordion-icon" aria-hidden="true"><i class="fas fa-plus"></i></div>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-content">
+            <div class="acc-features">
+              <div class="acc-feature">
+                <div class="acc-feature-dot rose"></div>
+                <div>
+                  <h4>Acoustic Quality Auditing</h4>
+                  <p>Scores each frame 0–10 for penetration depth, gain calibration, focal zone placement, and artefact presence. Rejects sub-threshold images before downstream processing.</p>
+                </div>
+              </div>
+              <div class="acc-feature">
+                <div class="acc-feature-dot rose"></div>
+                <div>
+                  <h4>ISUOG 5-Plane Cardiac Protocol</h4>
+                  <p>Identifies 4-chamber, LVOT, RVOT, 3-vessel, and 3VT planes. Flags missing planes and assesses cardiac axis (45° ± 20°) and situs concordance.</p>
+                </div>
+              </div>
+              <div class="acc-feature">
+                <div class="acc-feature-dot rose"></div>
+                <div>
+                  <h4>3-Axial Neurosonogram Evaluation</h4>
+                  <p>Validates transthalamic, transcerebellar, and transventricular planes. Checks cavum septum pellucidum, thalami, vermis, and cisterna magna visualisation.</p>
+                </div>
+              </div>
+              <div class="acc-feature">
+                <div class="acc-feature-dot rose"></div>
+                <div>
+                  <h4>Biometric Caliper Integrity</h4>
+                  <p>Confirms that measurement calipers are placed at anatomically correct landmarks — outer-to-outer for BPD, skin surface for HC, and mid-diaphragm for AC.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 2 -->
+      <div class="accordion-item" role="region" aria-labelledby="tier2-header">
+        <div class="accordion-header" id="tier2-header" role="button" tabindex="0" aria-expanded="false">
+          <div class="accordion-header-left">
+            <div class="accordion-tier tier-2" aria-hidden="true">2</div>
+            <div class="accordion-title">
+              <h3>Tier 2 — RAG Grounding Prompt</h3>
+              <p>Evidence Injection &amp; Clinical Threshold Validation</p>
+            </div>
+          </div>
+          <div class="accordion-icon" aria-hidden="true"><i class="fas fa-plus"></i></div>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-content">
+            <div class="acc-features">
+              <div class="acc-feature">
+                <div class="acc-feature-dot purple"></div>
+                <div>
+                  <h4>Evidence Grounding from RAG Knowledge Base</h4>
+                  <p>Injects the top-K retrieved chunks from the 1,520-record rag-only database. Every retrieved record is tagged with a [Record X] citation that must appear in the final report.</p>
+                </div>
+              </div>
+              <div class="acc-feature">
+                <div class="acc-feature-dot purple"></div>
+                <div>
+                  <h4>Validated Clinical Thresholds</h4>
+                  <p>Hardcodes ISUOG / SMFM thresholds: MSD ≥ 25 mm (viable IUP), CRL ≥ 7 mm (cardiac activity expected), NT &lt; 3.5 mm (normal), lateral ventricle &lt; 10 mm (normal). Any deviation is flagged.</p>
+                </div>
+              </div>
+              <div class="acc-feature">
+                <div class="acc-feature-dot purple"></div>
+                <div>
+                  <h4>Risk Stratification</h4>
+                  <p>Classifies each finding as Low, Intermediate, or High risk and mandates that the AI justify each classification with a cited clinical record.</p>
+                </div>
+              </div>
+              <div class="acc-feature">
+                <div class="acc-feature-dot purple"></div>
+                <div>
+                  <h4>Contradiction Detection</h4>
+                  <p>Instructs the model to flag when visual findings contradict retrieved guidelines — preventing hallucinations by surfacing uncertainty rather than fabricating resolution.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="accordion-item" role="region" aria-labelledby="tier3-header">
+        <div class="accordion-header" id="tier3-header" role="button" tabindex="0" aria-expanded="false">
+          <div class="accordion-header-left">
+            <div class="accordion-tier tier-3" aria-hidden="true">3</div>
+            <div class="accordion-title">
+              <h3>Tier 3 — Master Fusion Prompt</h3>
+              <p>Report Assembly &amp; Medico-Legal Guardrails</p>
+            </div>
+          </div>
+          <div class="accordion-icon" aria-hidden="true"><i class="fas fa-plus"></i></div>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-content">
+            <div class="acc-features">
+              <div class="acc-feature">
+                <div class="acc-feature-dot deep"></div>
+                <div>
+                  <h4>3-Class Triage Classification</h4>
+                  <p>Forces the model to output exactly one of: GRAVID (confirmed intrauterine pregnancy), NON-GRAVID (no intrauterine pregnancy identified), or PUL (Pregnancy of Unknown Location — IUP not confirmed nor excluded).</p>
+                </div>
+              </div>
+              <div class="acc-feature">
+                <div class="acc-feature-dot deep"></div>
+                <div>
+                  <h4>Standardised 8-Part Report</h4>
+                  <p>Enforces a fixed output schema: (1) Triage Class, (2) Scan Quality, (3) Gestational Age, (4) Biometrics, (5) Anatomical Survey, (6) Cardiac &amp; Neural Screening, (7) Risk Summary, (8) Clinical Recommendation with citations.</p>
+                </div>
+              </div>
+              <div class="acc-feature">
+                <div class="acc-feature-dot deep"></div>
+                <div>
+                  <h4>Medico-Legal Guardrails</h4>
+                  <p>Prohibits definitive diagnosis, mandates specialist referral language, and appends a standard disclaimer: "This report is generated by an AI clinical decision-support tool and must be reviewed by a qualified sonographer or obstetrician."</p>
+                </div>
+              </div>
+              <div class="acc-feature">
+                <div class="acc-feature-dot deep"></div>
+                <div>
+                  <h4>Multi-Turn Conversation Context</h4>
+                  <p>Maintains the full report in context for follow-up questions, allowing clinicians to ask targeted queries without re-uploading the image.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /fade-up -->
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CLINICAL THRESHOLDS
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--blush);" aria-labelledby="thresholds-heading">
+  <div class="container">
+    <span class="section-label">Clinical Benchmarks</span>
+    <h2 class="section-title fade-up" id="thresholds-heading">Hardcoded Clinical Thresholds</h2>
+    <p class="section-sub fade-up delay-1">
+      Key measurements embedded in the RAG Grounding Prompt for automatic validation.
+    </p>
+
+    <div class="threshold-grid fade-up delay-2">
+      <div class="threshold-card normal">
+        <h4>NT Nuchal Translucency</h4>
+        <div class="threshold-val">&lt; 3.5 mm</div>
+        <p class="threshold-range">Normal range at 11–13+6 weeks</p>
+      </div>
+      <div class="threshold-card danger">
+        <h4>NT — Increased Risk</h4>
+        <div class="threshold-val">≥ 3.5 mm</div>
+        <p class="threshold-range">Refer for chromosomal assessment</p>
+      </div>
+      <div class="threshold-card normal">
+        <h4>Lateral Ventricle Width</h4>
+        <div class="threshold-val">&lt; 10 mm</div>
+        <p class="threshold-range">Normal atrial diameter, any gestation</p>
+      </div>
+      <div class="threshold-card amber">
+        <h4>Borderline Ventriculomegaly</h4>
+        <div class="threshold-val">10 – 15 mm</div>
+        <p class="threshold-range">Monitor, refer to fetal medicine</p>
+      </div>
+      <div class="threshold-card danger">
+        <h4>Severe Ventriculomegaly</h4>
+        <div class="threshold-val">&gt; 15 mm</div>
+        <p class="threshold-range">High-risk — immediate referral</p>
+      </div>
+      <div class="threshold-card normal">
+        <h4>CRL — Cardiac Activity</h4>
+        <div class="threshold-val">≥ 7 mm</div>
+        <p class="threshold-range">Cardiac activity expected if ≥ 7 mm CRL</p>
+      </div>
+      <div class="threshold-card normal">
+        <h4>MSD — Viable IUP</h4>
+        <div class="threshold-val">≥ 25 mm</div>
+        <p class="threshold-range">Mean sac diameter for viable IUP</p>
+      </div>
+      <div class="threshold-card normal">
+        <h4>Cisterna Magna</h4>
+        <div class="threshold-val">2 – 10 mm</div>
+        <p class="threshold-range">Normal range at 15–22 weeks</p>
+      </div>
+      <div class="threshold-card amber">
+        <h4>Nuchal Fold (2nd Tri)</h4>
+        <div class="threshold-val">≤ 6 mm</div>
+        <p class="threshold-range">Normal at 18–22 weeks; &gt;6 mm is soft marker</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SAMPLE REPORT
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--card-white);" aria-labelledby="report-heading">
+  <div class="container">
+    <span class="section-label">Output Preview</span>
+    <h2 class="section-title fade-up" id="report-heading">Sample WombCare Clinical Report</h2>
+    <p class="section-sub fade-up delay-1">
+      The 8-part structured output generated for every scan, with evidence citations.
+    </p>
+
+    <div class="report-mock fade-up delay-2" role="document" aria-label="Sample clinical report output">
+      <div class="r-head">🌸 WombCare Clinical Report — Generated 2024-01-15 09:42 UTC</div>
+
+      <div class="r-section">§1 TRIAGE CLASSIFICATION</div>
+      <span class="r-val">GRAVID</span> — Intrauterine pregnancy confirmed. Single viable embryo identified.
+
+      <div class="r-section">§2 SCAN QUALITY ASSESSMENT</div>
+      Acoustic quality score: <span class="r-val">8.2 / 10</span>. Adequate penetration. Minor posterior shadowing noted at 4 o'clock position. <span class="r-note">Does not compromise diagnostic accuracy.</span>
+
+      <div class="r-section">§3 GESTATIONAL AGE</div>
+      CRL measurement: <span class="r-val">24.3 mm</span> → Estimated gestational age: <span class="r-val">8 weeks 4 days</span> (± 5 days). <span class="r-flag">[Record 0142: INTERGROWTH-21 CRL normogram]</span>
+
+      <div class="r-section">§4 BIOMETRIC MEASUREMENTS</div>
+      CRL: <span class="r-val">24.3 mm</span> | Yolk Sac: <span class="r-val">4.1 mm</span> (normal ≤ 5.5 mm) | MSD: <span class="r-val">32.7 mm</span> (confirms IUP) <span class="r-flag">[Record 0089]</span>
+
+      <div class="r-section">§5 ANATOMICAL SURVEY</div>
+      Embryonic pole: <span class="r-val">Present</span>. Cardiac activity: <span class="r-val">Present (168 bpm)</span>. Amnion: intact. Chorion: regular. Adnexa: <span class="r-val">No masses</span>.
+
+      <div class="r-section">§6 CARDIAC &amp; NEURAL SCREENING</div>
+      <span class="r-note">Not applicable at 8+4 weeks — deferred to 18–22 week anomaly scan. Recommend nuchal translucency scan at 11–13+6 weeks.</span> <span class="r-flag">[Record 0551: ISUOG NT guidelines]</span>
+
+      <div class="r-section">§7 RISK STRATIFICATION</div>
+      Overall risk: <span class="r-val">LOW</span>. No soft markers identified at this gestation. Combined screening recommended at 11–13+6 weeks. <span class="r-flag">[Record 0201, 0334]</span>
+
+      <div class="r-section">§8 CLINICAL RECOMMENDATION</div>
+      Routine antenatal care pathway. Schedule first trimester combined screening (11–13+6 weeks). <span class="r-note">This report is AI-generated. Must be reviewed by a qualified sonographer or obstetrician before clinical action.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     COMPARISON
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--blush);" aria-labelledby="cmp-heading">
+  <div class="container">
+    <span class="section-label">Impact</span>
+    <h2 class="section-title fade-up" id="cmp-heading">Prompts make the difference</h2>
+    <p class="section-sub fade-up delay-1">
+      The same GPT-4o model, with and without WombCare's clinical prompt architecture.
+    </p>
+
+    <div class="comparison-grid fade-up delay-2">
+      <div class="cmp-card bad">
+        <h4>❌ Without WombCare Prompts</h4>
+        <p>
+          "The image shows what appears to be a pregnancy. The embryo looks healthy. There might be
+          some structures visible. The measurements seem normal. Overall this looks like a normal
+          early pregnancy. Please consult your doctor for more information."
+        </p>
+      </div>
+      <div class="cmp-card good">
+        <h4>✅ With WombCare Prompts</h4>
+        <p>
+          "TRIAGE: GRAVID. CRL 24.3 mm → 8w4d (±5d) [Record 0142]. Cardiac activity 168 bpm confirmed.
+          Yolk sac 4.1 mm (normal ≤5.5 mm) [Record 0089]. Nuchal translucency deferred — schedule
+          11–13+6w scan. Risk: LOW. AI-assisted report — must be reviewed by qualified sonographer."
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span>🌸</span> WombCare</div>
+        <p>Multimodal AI for Fetal Ultrasound Intelligence &amp; Pregnancy Support</p>
+      </div>
+      <div class="footer-col">
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="system-prompts.html">System Prompts</a></li>
+          <li><a href="clinical-guidelines.html">Guidelines</a></li>
+          <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-tech">Built with GPT-4o Vision &amp; FastAPI</p>
+        <a href="https://github.com/vishalhaldar" class="footer-badge" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-github" aria-hidden="true"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">© 2024 <span>Vishal Haldar</span> · WombCare · Clinical Decision-Support AI</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

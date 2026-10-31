@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAG Knowledge Base — WombCare</title>
+  <meta name="description" content="WombCare's 1,520-record clinical knowledge base: six JSONL datasets powering hybrid retrieval across SQLite FTS5, ChromaDB, and OpenAI Vector Store." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="skeleton-overlay" role="status" aria-label="Loading"><div class="skeleton-logo">🌸</div></div>
+
+<!-- NAV -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>🌸</span> WombCare</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#analyzer" style="color:var(--rose); font-weight:600;">🌸 Live Analyzer</a></li>
+      <li><a href="technology.html">Technology</a></li>
+      <li><a href="system-prompts.html">System Prompts</a></li>
+      <li><a href="clinical-guidelines.html">Guidelines</a></li>
+      <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="nav-drawer" aria-label="Mobile navigation">
+  <a href="index.html">🏠 Home</a>
+  <a href="technology.html">⚙️ Technology</a>
+  <a href="system-prompts.html">📋 System Prompts</a>
+  <a href="clinical-guidelines.html">🏥 Guidelines</a>
+  <a href="rag-knowledge.html">📚 Knowledge Base</a>
+  <a href="about.html">👤 About</a>
+</nav>
+
+<!-- PAGE HERO with counters -->
+<header class="page-hero" style="padding-bottom:40px;">
+  <div class="container">
+    <span class="page-hero-icon" aria-hidden="true">📚</span>
+    <h1 class="fade-up">Clinical <span class="gradient-text">Knowledge Base</span></h1>
+    <p class="fade-up delay-1">
+      1,520 curated clinical records across six specialised datasets — indexed for hybrid retrieval using
+      keyword search, semantic similarity, and cloud vector matching.
+    </p>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<section class="stats" style="padding:48px 0;" aria-label="Knowledge base statistics">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-up">
+        <span class="stat-num" data-target="1520">0</span>
+        <span class="stat-label">Clinical Records</span>
+      </div>
+      <div class="stat-item fade-up delay-1">
+        <span class="stat-num" data-target="1445">0</span>
+        <span class="stat-label">Evidence Excerpts</span>
+      </div>
+      <div class="stat-item fade-up delay-2">
+        <span class="stat-num" data-target="68">0</span>
+        <span class="stat-label">Medical Papers</span>
+      </div>
+      <div class="stat-item fade-up delay-3">
+        <span class="stat-num" data-target="3">0</span>
+        <span class="stat-label">Retrieval Backends</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     KNOWLEDGE BASE STRUCTURE
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--card-white);" aria-labelledby="kb-heading">
+  <div class="container">
+    <span class="section-label">Dataset Structure</span>
+    <h2 class="section-title fade-up" id="kb-heading">Six Specialised JSONL Datasets</h2>
+    <p class="section-sub fade-up delay-1">
+      Each dataset addresses a distinct clinical domain. Together they cover the full scope of obstetric ultrasound.
+    </p>
+
+    <div class="kb-grid fade-up delay-2">
+
+      <div class="kb-card">
+        <span class="kb-icon" aria-hidden="true">📐</span>
+        <div class="kb-filename">views.jsonl</div>
+        <h3>Standard Planes &amp; Landmarks</h3>
+        <p>Descriptions of every standard scanning plane — transthalamic, LVOT, 4-chamber, abdominal circumference — with anatomical landmark requirements and image quality criteria.</p>
+        <div class="kb-count">248 records</div>
+      </div>
+
+      <div class="kb-card">
+        <span class="kb-icon" aria-hidden="true">🔍</span>
+        <div class="kb-filename">findings.jsonl</div>
+        <h3>Sonographic Features &amp; Criteria</h3>
+        <p>Catalogue of ultrasound findings: what each feature looks like, how it is measured, and its diagnostic significance. Includes echogenicity patterns, morphological descriptors, and Doppler waveform profiles.</p>
+        <div class="kb-count">412 records</div>
+      </div>
+
+      <div class="kb-card">
+        <span class="kb-icon" aria-hidden="true">🔄</span>
+        <div class="kb-filename">workflows.jsonl</div>
+        <h3>Clinical Protocols &amp; Triage</h3>
+        <p>Step-by-step clinical decision pathways for PUL management, failed pregnancy diagnosis, ectopic exclusion, and referral escalation — drawn from RCOG and SMFM guidelines.</p>
+        <div class="kb-count">156 records</div>
+      </div>
+
+      <div class="kb-card">
+        <span class="kb-icon" aria-hidden="true">🫀</span>
+        <div class="kb-filename">diseases.jsonl</div>
+        <h3>Congenital Anomalies &amp; Pathologies</h3>
+        <p>Structured entries for each congenital condition WombCare can flag: Tetralogy of Fallot, Turner syndrome, anencephaly, ventriculomegaly, and 50+ others, with ultrasound appearance and prevalence data.</p>
+        <div class="kb-count">318 records</div>
+      </div>
+
+      <div class="kb-card">
+        <span class="kb-icon" aria-hidden="true">📁</span>
+        <div class="kb-filename">cases.jsonl</div>
+        <h3>Verified Clinical Cases</h3>
+        <p>De-identified case summaries with ultrasound findings, clinical context, outcome, and expert commentary. Used to ground the AI in realistic presentation patterns rather than textbook scenarios alone.</p>
+        <div class="kb-count">289 records</div>
+      </div>
+
+      <div class="kb-card">
+        <span class="kb-icon" aria-hidden="true">🖼️</span>
+        <div class="kb-filename">media.jsonl</div>
+        <h3>Figure Evidence &amp; Annotations</h3>
+        <p>Descriptions of published ultrasound figures with expert annotations: measurement technique, image quality assessment, and diagnostic interpretation — bridging textual and visual clinical knowledge.</p>
+        <div class="kb-count">97 records</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     HYBRID RETRIEVAL DIAGRAM
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--blush);" aria-labelledby="retrieval-heading">
+  <div class="container">
+    <span class="section-label">Retrieval Architecture</span>
+    <h2 class="section-title fade-up" id="retrieval-heading">Hybrid Three-Backend Retrieval</h2>
+    <p class="section-sub fade-up delay-1">
+      Every query fans out across three independent retrieval systems. Results are merged and ranked before injection into the system prompt.
+    </p>
+
+    <div class="retrieval-diagram fade-up delay-2" role="img" aria-label="Hybrid retrieval flow diagram">
+      <div class="ret-title">
+        <h3>Query → Parallel Retrieval → Merge → Top-K Chunks → GPT-4o</h3>
+      </div>
+
+      <div class="ret-flow">
+
+        <div class="ret-node query-node">
+          <h4>🔎 Clinical Query</h4>
+          <p>Extracted from scan context</p>
+        </div>
+
+        <span class="ret-arrow" aria-hidden="true">→</span>
+
+        <div class="ret-branches">
+          <div class="ret-node fts-node">
+            <h4>🗄️ SQLite FTS5</h4>
+            <p>Keyword &amp; phrase match · BM25</p>
+          </div>
+          <div class="ret-node chroma-node">
+            <h4>🧮 ChromaDB</h4>
+            <p>Semantic similarity · cosine</p>
+          </div>
+          <div class="ret-node oai-node">
+            <h4>☁️ OpenAI Vector Store</h4>
+            <p>Cloud retrieval · file-search</p>
+          </div>
+        </div>
+
+        <span class="ret-arrow" aria-hidden="true">→</span>
+
+        <div class="ret-node merge-node">
+          <h4>🔀 Merge &amp; Rank</h4>
+          <p>Reciprocal Rank Fusion → Top-K</p>
+        </div>
+
+        <span class="ret-arrow" aria-hidden="true">→</span>
+
+        <div class="ret-node query-node">
+          <h4>🤖 GPT-4o</h4>
+          <p>Grounded report generation</p>
+        </div>
+
+      </div>
+
+      <div style="margin-top:32px;background:rgba(233,30,140,.04);border:1px solid rgba(233,30,140,.15);border-radius:var(--radius-md);padding:20px 24px;">
+        <p style="margin:0;font-size:.9rem;color:var(--ink-soft);">
+          <strong style="color:var(--ink);">Why three backends?</strong> FTS5 returns exact keyword matches instantly — critical for specific biometric thresholds. ChromaDB catches semantically similar concepts even when terminology differs. The OpenAI Vector Store adds cloud-scale retrieval across the full 68-paper corpus. Fusion prevents any single backend's blind spots from reaching the model.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CITATION FLOW
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--card-white);" aria-labelledby="citation-heading">
+  <div class="container">
+    <span class="section-label">Evidence Trail</span>
+    <h2 class="section-title fade-up" id="citation-heading">How Citations Flow to the Final Report</h2>
+    <p class="section-sub fade-up delay-1">
+      Every claim in a WombCare report can be traced back to a specific knowledge base record.
+    </p>
+
+    <div class="arch-flow fade-up delay-2" role="img" aria-label="Citation flow from knowledge base to report">
+      <div class="arch-node">
+        <span class="arch-node-icon">📚</span>
+        <h4>Knowledge Base</h4>
+        <p>1,520 records</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🔍</span>
+        <h4>Retrieval</h4>
+        <p>Top-K chunks</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🏷️</span>
+        <h4>Tag [Record X]</h4>
+        <p>ID assigned</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">📋</span>
+        <h4>System Prompt</h4>
+        <p>Injected as context</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🤖</span>
+        <h4>GPT-4o</h4>
+        <p>Cites in output</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">📄</span>
+        <h4>Final Report</h4>
+        <p>[Record X] inline</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SAMPLE RECORDS
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--blush);" aria-labelledby="samples-heading">
+  <div class="container">
+    <span class="section-label">Data Preview</span>
+    <h2 class="section-title fade-up" id="samples-heading">Sample Knowledge Records</h2>
+    <p class="section-sub fade-up delay-1">
+      What a real WombCare clinical record looks like across three dataset types.
+    </p>
+
+    <div class="sample-records-grid fade-up delay-2">
+
+      <div class="sample-record" role="document" aria-label="Sample view record">
+        <div class="sr-type">views.jsonl</div>
+        <span class="sr-key">"id"</span>: <span class="sr-str">"VIEW_0142"</span>,<br />
+        <span class="sr-key">"type"</span>: <span class="sr-str">"standard_plane"</span>,<br />
+        <span class="sr-key">"name"</span>: <span class="sr-str">"Transthalamic Plane"</span>,<br />
+        <span class="sr-key">"trimester"</span>: <span class="sr-str">"second"</span>,<br />
+        <span class="sr-key">"landmarks"</span>: [<br />
+        &nbsp;&nbsp;<span class="sr-str">"thalami"</span>, <span class="sr-str">"CSP"</span>, <span class="sr-str">"falx"</span><br />
+        ],<br />
+        <span class="sr-key">"measurement"</span>: <span class="sr-str">"BPD outer-to-outer"</span>,<br />
+        <span class="sr-key">"source"</span>: <span class="sr-str">"ISUOG 2022"</span>
+      </div>
+
+      <div class="sample-record" role="document" aria-label="Sample finding record">
+        <div class="sr-type">findings.jsonl</div>
+        <span class="sr-key">"id"</span>: <span class="sr-str">"FIND_0089"</span>,<br />
+        <span class="sr-key">"feature"</span>: <span class="sr-str">"Nuchal Translucency"</span>,<br />
+        <span class="sr-key">"normal_threshold"</span>: <span class="sr-val">&lt; 3.5</span>,<br />
+        <span class="sr-key">"unit"</span>: <span class="sr-str">"mm"</span>,<br />
+        <span class="sr-key">"gestation"</span>: <span class="sr-str">"11w0d – 13w6d"</span>,<br />
+        <span class="sr-key">"significance"</span>: <span class="sr-str">"T21, T18, cardiac defects"</span>,<br />
+        <span class="sr-key">"measurement_method"</span>: <span class="sr-str">"Neutral position, sagittal plane"</span>,<br />
+        <span class="sr-key">"source"</span>: <span class="sr-str">"SMFM 2023, ISUOG 2022"</span>
+      </div>
+
+      <div class="sample-record" role="document" aria-label="Sample disease record">
+        <div class="sr-type">diseases.jsonl</div>
+        <span class="sr-key">"id"</span>: <span class="sr-str">"DIS_0201"</span>,<br />
+        <span class="sr-key">"condition"</span>: <span class="sr-str">"Tetralogy of Fallot"</span>,<br />
+        <span class="sr-key">"prevalence"</span>: <span class="sr-str">"3.5 / 10,000 births"</span>,<br />
+        <span class="sr-key">"ultrasound_features"</span>: [<br />
+        &nbsp;&nbsp;<span class="sr-str">"VSD subarterial"</span>,<br />
+        &nbsp;&nbsp;<span class="sr-str">"Aortic override"</span>,<br />
+        &nbsp;&nbsp;<span class="sr-str">"RVOT obstruction"</span>,<br />
+        &nbsp;&nbsp;<span class="sr-str">"RVH"</span><br />
+        ],<br />
+        <span class="sr-key">"detection_plane"</span>: <span class="sr-str">"4CV + LVOT"</span>,<br />
+        <span class="sr-key">"risk_level"</span>: <span class="sr-str">"HIGH"</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span>🌸</span> WombCare</div>
+        <p>Multimodal AI for Fetal Ultrasound Intelligence &amp; Pregnancy Support</p>
+      </div>
+      <div class="footer-col">
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="system-prompts.html">System Prompts</a></li>
+          <li><a href="clinical-guidelines.html">Guidelines</a></li>
+          <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-tech">Built with GPT-4o Vision &amp; FastAPI</p>
+        <a href="https://github.com/vishalhaldar" class="footer-badge" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-github" aria-hidden="true"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">© 2024 <span>Vishal Haldar</span> · WombCare · Clinical Decision-Support AI</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

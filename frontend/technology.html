@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Technology Stack — WombCare</title>
+  <meta name="description" content="WombCare's three-pipeline architecture: Vision Ingestion, Clinical RAG, and Multimodal Fusion with GPT-4o." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="skeleton-overlay" role="status" aria-label="Loading"><div class="skeleton-logo">🌸</div></div>
+
+<!-- NAV -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>🌸</span> WombCare</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#analyzer" style="color:var(--rose); font-weight:600;">🌸 Live Analyzer</a></li>
+      <li><a href="technology.html">Technology</a></li>
+      <li><a href="system-prompts.html">System Prompts</a></li>
+      <li><a href="clinical-guidelines.html">Guidelines</a></li>
+      <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="nav-drawer" aria-label="Mobile navigation">
+  <a href="index.html">🏠 Home</a>
+  <a href="technology.html">⚙️ Technology</a>
+  <a href="system-prompts.html">📋 System Prompts</a>
+  <a href="clinical-guidelines.html">🏥 Guidelines</a>
+  <a href="rag-knowledge.html">📚 Knowledge Base</a>
+  <a href="about.html">👤 About</a>
+</nav>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="container">
+    <span class="page-hero-icon" aria-hidden="true">⚙️</span>
+    <h1 class="fade-up">Technology Stack <span class="gradient-text">&amp; Architecture</span></h1>
+    <p class="fade-up delay-1">
+      Three specialised pipelines working in concert to analyse fetal ultrasound images,
+      retrieve clinical evidence, and generate structured medical reports.
+    </p>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     PIPELINE DIAGRAM
+     ══════════════════════════════════════════════════════════ -->
+<section class="section pipeline-section" aria-labelledby="pipeline-heading">
+  <div class="container">
+    <span class="section-label">Architecture</span>
+    <h2 class="section-title fade-up" id="pipeline-heading">Three-Pipeline Processing Architecture</h2>
+    <p class="section-sub fade-up delay-1">
+      Hover over each pipeline card to expand the full technical detail. Click to pin.
+    </p>
+
+    <div class="pipeline-container fade-up delay-2">
+
+      <!-- P1 -->
+      <article class="pipeline-card blue" tabindex="0" aria-label="Pipeline 1: Vision Ingestion">
+        <div class="pipeline-num">Pipeline 01</div>
+        <h3><i class="fas fa-eye" aria-hidden="true"></i> Vision Ingestion</h3>
+        <p>Image preprocessing and quality validation</p>
+        <div class="pipeline-detail">
+          <ul>
+            <li>OpenCV image decoding &amp; normalisation</li>
+            <li>Pillow RGBA→RGB conversion</li>
+            <li>NumPy array standardisation</li>
+            <li>Acoustic quality scoring (0–10)</li>
+            <li>Artefact &amp; shadowing detection</li>
+            <li>Base64 encoding for API transport</li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="pipeline-connector" aria-hidden="true">
+        <div class="pipeline-line"></div>
+      </div>
+
+      <!-- P2 -->
+      <article class="pipeline-card purple" tabindex="0" aria-label="Pipeline 2: Clinical RAG">
+        <div class="pipeline-num">Pipeline 02</div>
+        <h3><i class="fas fa-database" aria-hidden="true"></i> Clinical RAG</h3>
+        <p>Hybrid evidence retrieval from three backends</p>
+        <div class="pipeline-detail">
+          <ul>
+            <li>SQLite FTS5 full-text keyword search</li>
+            <li>ChromaDB semantic vector similarity</li>
+            <li>OpenAI Vector Store cloud retrieval</li>
+            <li>Top-K chunk fusion &amp; ranking</li>
+            <li>Citation ID tagging [Record X]</li>
+            <li>Context window assembly</li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="pipeline-connector" aria-hidden="true">
+        <div class="pipeline-line"></div>
+      </div>
+
+      <!-- P3 -->
+      <article class="pipeline-card rose" tabindex="0" aria-label="Pipeline 3: Multimodal Fusion">
+        <div class="pipeline-num">Pipeline 03</div>
+        <h3><i class="fas fa-brain" aria-hidden="true"></i> Multimodal Fusion</h3>
+        <p>GPT-4o Vision report generation</p>
+        <div class="pipeline-detail">
+          <ul>
+            <li>GPT-4o Vision multimodal call</li>
+            <li>3-tier system prompt injection</li>
+            <li>Triage classification (Gravid / Non-Gravid / PUL)</li>
+            <li>8-part structured report assembly</li>
+            <li>Medico-legal guardrail enforcement</li>
+            <li>Multi-turn conversation support</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     ARCHITECTURE FLOWCHART
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--blush);" aria-labelledby="arch-heading">
+  <div class="container">
+    <span class="section-label">Data Flow</span>
+    <h2 class="section-title fade-up" id="arch-heading">End-to-End Request Flow</h2>
+    <p class="section-sub fade-up delay-1">
+      How a single ultrasound image traverses the entire WombCare system.
+    </p>
+
+    <div class="arch-flow fade-up delay-2" role="img" aria-label="Architecture flowchart showing Upload → Vision Ingestion → Clinical RAG → Multimodal Fusion → Report">
+      <div class="arch-node">
+        <span class="arch-node-icon">📤</span>
+        <h4>Upload</h4>
+        <p>Streamlit / REST</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🖼️</span>
+        <h4>Preprocess</h4>
+        <p>OpenCV · PIL</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🔍</span>
+        <h4>RAG Retrieve</h4>
+        <p>FTS5 · Chroma · OAI</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🧩</span>
+        <h4>Prompt Fusion</h4>
+        <p>3-Tier Prompts</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🤖</span>
+        <h4>GPT-4o Vision</h4>
+        <p>OpenAI API</p>
+      </div>
+      <div class="arch-arrow" aria-hidden="true"></div>
+      <div class="arch-node">
+        <span class="arch-node-icon">📄</span>
+        <h4>Clinical Report</h4>
+        <p>8-Part Output</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     TECH STACK GRID
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--card-white);" aria-labelledby="stack-heading">
+  <div class="container">
+    <span class="section-label">Tools &amp; Libraries</span>
+    <h2 class="section-title fade-up" id="stack-heading">Complete Technology Stack</h2>
+    <p class="section-sub fade-up delay-1">Every library and service that powers WombCare.</p>
+
+    <div class="tech-grid fade-up delay-2">
+
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">🐍</span>
+        <h4>Python 3.11</h4>
+        <p>Core language</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">⚡</span>
+        <h4>FastAPI</h4>
+        <p>REST API framework</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">🦄</span>
+        <h4>Uvicorn</h4>
+        <p>ASGI server</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">🎈</span>
+        <h4>Streamlit</h4>
+        <p>Web UI</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">👁️</span>
+        <h4>OpenCV</h4>
+        <p>Image processing</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">🖼️</span>
+        <h4>Pillow</h4>
+        <p>PIL image handling</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">🔢</span>
+        <h4>NumPy</h4>
+        <p>Array operations</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">🗄️</span>
+        <h4>SQLite FTS5</h4>
+        <p>Full-text search</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">🧮</span>
+        <h4>ChromaDB</h4>
+        <p>Vector store</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">🤖</span>
+        <h4>GPT-4o Vision</h4>
+        <p>Multimodal LLM</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">📐</span>
+        <h4>text-embedding-3-small</h4>
+        <p>OpenAI embeddings</p>
+      </div>
+      <div class="tech-card">
+        <span class="tech-icon-emoji" aria-hidden="true">🐙</span>
+        <h4>Git / GitHub</h4>
+        <p>Version control</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     AI MODELS TABLE
+     ══════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--blush);" aria-labelledby="models-heading">
+  <div class="container">
+    <span class="section-label">AI Models</span>
+    <h2 class="section-title fade-up" id="models-heading">Model Comparison</h2>
+    <p class="section-sub fade-up delay-1">The AI models driving each layer of WombCare's intelligence.</p>
+
+    <div class="table-wrapper fade-up delay-2">
+      <table aria-label="AI models used in WombCare">
+        <thead>
+          <tr>
+            <th scope="col">Model</th>
+            <th scope="col">Provider</th>
+            <th scope="col">Role</th>
+            <th scope="col">Key Parameter</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>GPT-4o</td>
+            <td>OpenAI</td>
+            <td>Primary multimodal reasoning &amp; report generation</td>
+            <td>128K context, vision-enabled</td>
+          </tr>
+          <tr>
+            <td>text-embedding-3-small</td>
+            <td>OpenAI</td>
+            <td>Semantic embedding for ChromaDB &amp; Vector Store</td>
+            <td>1,536-dim, 8K token input</td>
+          </tr>
+          <tr>
+            <td>ChromaDB (local)</td>
+            <td>Chroma</td>
+            <td>On-device vector similarity retrieval</td>
+            <td>Cosine distance, HNSW index</td>
+          </tr>
+          <tr>
+            <td>SQLite FTS5</td>
+            <td>SQLite</td>
+            <td>Fast keyword &amp; phrase full-text search</td>
+            <td>BM25 ranking, trigram index</td>
+          </tr>
+          <tr>
+            <td>OpenAI Vector Store</td>
+            <td>OpenAI</td>
+            <td>Cloud-hosted retrieval for file-search tool</td>
+            <td>Managed embeddings, 10K files</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><span>🌸</span> WombCare</div>
+        <p>Multimodal AI for Fetal Ultrasound Intelligence &amp; Pregnancy Support</p>
+      </div>
+      <div class="footer-col">
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="technology.html">Technology</a></li>
+          <li><a href="system-prompts.html">System Prompts</a></li>
+          <li><a href="clinical-guidelines.html">Guidelines</a></li>
+          <li><a href="rag-knowledge.html">Knowledge Base</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-tech">Built with GPT-4o Vision &amp; FastAPI</p>
+        <a href="https://github.com/vishalhaldar" class="footer-badge" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-github" aria-hidden="true"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">© 2024 <span>Vishal Haldar</span> · WombCare · Clinical Decision-Support AI</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
