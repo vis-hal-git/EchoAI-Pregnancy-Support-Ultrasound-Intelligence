@@ -11,6 +11,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.35%2B-FF4B4B.svg?logo=streamlit)](https://streamlit.io/)
 [![GPT-4o Vision](https://img.shields.io/badge/Model-GPT--4o%20Vision-purple.svg?logo=openai)](https://openai.com/)
 [![Clinical RAG](https://img.shields.io/badge/Knowledge%20Base-rag--only%20(1%2C520%20records)-e91e8c.svg)](#-curated-clinical-rag-pipeline-2)
+[![Medical Guidelines](https://img.shields.io/badge/Standards-ISUOG%20%7C%20AIUM%20%7C%20SMFM-green.svg)](#-clinical-system-prompt-architecture)
 [![License: MIT](https://img.shields.io/badge/License-MIT-gray.svg)](#-license)
 
 </div>
@@ -19,88 +20,122 @@
 
 ## 🌸 Overview
 
-**WombCare** is an executive multimodal medical AI dashboard engineered for fetal ultrasound screening, pelvic scan classification, and maternal pregnancy consultation. Grounded in the **`rag-only` clinical ultrasound dataset**, WombCare couples **GPT-4o Multimodal Vision** with **Retrieval-Augmented Generation (RAG)** across a curated corpus of 1,520 clinical ultrasound records.
+**WombCare** is an executive-grade multimodal medical AI system engineered for obstetric ultrasound screening, gynecological pelvic scan classification, and maternal pregnancy consultation. Grounded strictly in the **`rag-only` clinical ultrasound dataset** (1,520 curated records, 1,445 evidence excerpts, and 68 primary medical papers), WombCare couples **GPT-4o Multimodal Vision** with **hybrid Retrieval-Augmented Generation (RAG)**.
 
-Whether evaluating static scans, dynamic cine-loop video sweeps, or clinical text consultations, WombCare delivers immediate diagnostic classification, structured anatomical checklists, plane evaluations, and cited clinical evidence.
+Whether evaluating static 2D/3D scans (`.png`, `.jpg`, `.jpeg`), dynamic cine-loop video sweeps (`.mp4`, `.avi`), or natural-language pregnancy consultations, WombCare provides:
+- **Instant Diagnostic Triage**: Gravid (`PREGNANCY DETECTED`), Non-Gravid (`NON-PREGNANT`), or Indeterminate (`PUL / Early Correlation`).
+- **Standard Screening Plane Verification**: Neurosonogram axial planes, 5-plane ISUOG cardiac screening, facial profile/lips, spine alignment, abdominal circumference, renal fossae, and femur length diaphysis.
+- **Biometric Caliper Integrity & Validation**: Verification of caliper landmarks (outer-to-inner BPD, outer ellipse HC/AC, diaphyseal FL excluding epiphyses, inner-to-inner NT).
+- **Evidence-Grounded Reports**: Complete anatomical checklists and clinical recommendations with in-text citations (`[Record X]`, `[Guideline: Authors, Year]`).
 
 ---
 
 ## 🌟 Key Capabilities
 
-### 1. Definitive Diagnostic Triage
-- 🤰 **Gravid (Pregnancy Detected)**: Rapidly identifies intrauterine gestational sacs, double decidual signs, yolk sacs, embryonic poles, cardiac flickers, fetal anatomy (cranial, cardiac, spinal, abdominal), and placental attachments.
-- 🩺 **Non-Gravid (Pelvic Anatomy)**: Identifies nongravid pelvic morphology (homogeneous myometrium, regular endometrial stripes, ovarian parenchyma, absence of intrauterine or ectopic gestational sacs).
-- ⚠️ **Indeterminate / PUL**: Identifies equivocal fluid collections, pseudogestational sacs, or early pregnancies of unknown location (PUL), issuing instant directives for quantitative serum $\beta$-hCG correlation and repeat transvaginal sonography (TVS).
+### 1. Definitive Diagnostic Classification
+- 🤰 **Gravid (Pregnancy Detected)**: Identifies intrauterine gestational sacs, double decidual sac sign (DDSS), yolk sacs, embryonic poles with cardiac activity, and comprehensive second/third-trimester fetal organ systems.
+- 🩺 **Non-Gravid (Pelvic Anatomy)**: Confirms normal or pathological non-gravid pelvic morphology (uterine size/axis, regular endometrial stripe, functional ovarian parenchyma, O-RADS cysts/masses, absence of intrauterine or ectopic gestational structures).
+- ⚠️ **Indeterminate / PUL**: Detects equivocal intrauterine fluid, pseudo-gestational sacs, or early pregnancies of unknown location (PUL), issuing immediate directives for quantitative serum $\beta$-hCG correlation and scheduled repeat transvaginal sonography (TVS).
 
-### 2. Multimodal Ultrasound Ingestion (Pipeline 1)
-- Supports static scans (`.png`, `.jpg`, `.jpeg`) and ultrasound video cine-loops (`.mp4`, `.avi`, `.mov`).
-- Employs **Variance-of-Laplacian blur filtering** combined with uniform temporal sampling to automatically extract the highest-clarity acoustic keyframes.
+### 2. One-Click Upload to Detailed Report Workflow
+- **Streamlined User Experience**: Select any ultrasound image or video file and click **"🌸 Upload & Generate Report"**.
+- **Immediate Report Generation**: Automatically queries the clinical knowledge base, processes keyframes, and opens directly in **Tab 1: 📋 Detailed Assessment Report**.
+- **Interactive Multi-Turn Consultation**: Seamlessly ask follow-up questions in **Tab 2: 💬 Consultation & Follow-up** with continuous session memory.
+- **Evidence Inspector & Telemetry**: Review retrieved clinical records in **Tab 3** and inspect backend latency/token metrics in **Tab 4**.
 
-### 3. Curated Clinical RAG (Pipeline 2)
-- Indexed directly on the structured **`rag-only/`** clinical knowledge base (1,520 ultrasound records, 1,445 evidence excerpts, 68 cited clinical publications across views, findings, diseases, and workflows).
-- **Hybrid Retrieval Backends**:
-  - **SQLite FTS5 Full-Text Search**: Instant zero-latency search with zero API cost.
-  - **ChromaDB Vector Store**: Local embedding retrieval for offline/dev environments.
-  - **OpenAI Cloud Vector Store**: Enterprise assistant-grade cloud retrieval.
-- Context-aware clinical query expansion and strict citation tracking (`[Reference 1]`, `[Reference 2]`).
-
-### 4. Multimodal Fusion & Structured Reports (Pipeline 3)
-- Fuses sampled keyframes with retrieved clinical literature into a structured prompt for **GPT-4o**.
-- Emits structured medical assessment reports:
-  - Classification banner (Gravid / Non-Gravid / Indeterminate).
-  - Anatomical breakdown and checklist.
-  - Plane optimization & acoustic quality evaluation.
-  - Clinical interpretations with guideline citations.
-  - Recommended follow-up steps.
-
-### 5. Multi-Turn Interactive Consultation & Text Inquiries
-- Supports both scan uploads and text-only queries (e.g., gestational age calculation, amniotic fluid evaluation, ectopic risk factors).
-- Context-preserving session memory for multi-turn follow-up queries.
-
-### 6. Executive WombCare Frontend & Theme Guarantee
-- Redesigned with the **WombCare Design System**: warm rose/blush palette, high-contrast typography, and soft card styling.
-- Hardened with explicit CSS and `.streamlit/config.toml` light-theme enforcement to eliminate dark-mode text washout and ensure 100% legibility across all browsers.
-- Multi-tab layout: **💬 Consultation Chat**, **📋 Assessment Report** (with 1-click `.md` and `.json` export), **📚 Guidelines Inspector**, and **🔬 Session Diagnostics**.
+### 3. Curated Clinical Knowledge Base (`rag-only`)
+- 1,520 curated fetal ultrasound records organized across:
+  - `views.jsonl`: Standard anatomical planes, probe positioning, and acoustic landmarks.
+  - `findings.jsonl`: Sonographic features, biometric measurements, and diagnostic markers.
+  - `workflows.jsonl`: Step-by-step screening sequences and triage protocols.
+  - `diseases.jsonl`: Congenital heart defects, neural tube defects, skeletal dysplasias, and early pregnancy complications.
+  - `cases.jsonl`: Verified clinical presentations and sonographic correlations.
+  - `media.jsonl`: Figure evidence and clinical scan annotations.
+- **Hybrid Multi-Backend Retrieval**:
+  - **SQLite FTS5 Full-Text Search**: Instant local BM25 ranking across records, evidence, and guideline citations.
+  - **ChromaDB Vector Store**: Persistent semantic vector search with `text-embedding-3-small`.
+  - **OpenAI Cloud Vector Store**: Production enterprise vector store via OpenAI Files API.
 
 ---
 
-## 🏗️ System Architecture
+## 🧬 Clinical System Prompt Architecture
+
+WombCare implements a modular, clinically rigorous prompt architecture aligned with international ultrasound screening standards:
 
 ```mermaid
-graph TD
-    A[Ultrasound Scan / Cine Sweep / Text Query] --> B[WombCare Executive UI /app.py]
-    B -->|REST API POST| C[FastAPI Backend /api.py]
-    
-    subgraph Pipeline 1: Ingestion
-        C -->|File Upload| D{Input Type}
-        D -->|Video .mp4/.avi| E[Laplacian Blur Filter + Keyframe Sampling]
-        D -->|Image .png/.jpg| F[Frame Preprocessing & Validation]
-        E --> G[Base64 Keyframe Payload]
-        F --> G
+flowchart TD
+    subgraph P1["Pipeline 1: Visual Ingestion & Sonography"]
+        V1["Ultrasound Ingestion (RGB / Video Cine Sweep)"]
+        V2["Acoustic Quality Audit (Gain, Depth, Artifacts)"]
+        V3["Standard Plane Recognition (ISUOG / AIUM)"]
+        V4["Biometric Caliper Integrity Verification"]
+        V1 --> V2 --> V3 --> V4
     end
-    
-    subgraph Pipeline 2: Clinical RAG
-        C -->|Query| H[Clinical Query Expansion]
-        H --> I{RAG Backend}
-        I -->|FTS5 Search| J[(SQLite Full-Text Index)]
-        I -->|Dense Vector| K[(ChromaDB Local Store)]
-        I -->|Cloud Vector| L[(OpenAI Vector Store)]
-        J --> M[Retrieved ISUOG Guidelines]
-        K --> M
-        L --> M
+
+    subgraph P2["Pipeline 2: RAG Clinical Grounding"]
+        R1["Hybrid Retrieval (SQLite FTS5 + ChromaDB)"]
+        R2["Clinical Knowledge Base (rag-only: 1,520 records)"]
+        R3["International Guidelines (ISUOG, AIUM, SMFM, ACR)"]
+        R4["Citation Discipline & Benchmark Validation"]
+        R1 --> R2 --> R3 --> R4
     end
-    
-    subgraph Pipeline 3: Multimodal Vision Fusion
-        G --> N[GPT-4o Vision Reasoner]
-        M --> N
-        C -->|Chat History| N
-        N --> O[Structured Clinical Report & Citations]
+
+    subgraph P3["Pipeline 3: Multimodal Clinical Fusion"]
+        F1["Unified Multimodal System Prompt"]
+        F2["GPT-4o Vision Engine (Max Tokens: 2,500, Temp: 0.2)"]
+        F3["Standardized Structured Clinical Assessment Report"]
+        P1 --> F1
+        P2 --> F1
+        F1 --> F2 --> F3
     end
-    
-    O --> C
-    C -->|JSON Response| B
-    B --> P[Interactive Chat + Markdown Report + Citations Tab]
 ```
+
+### 1. Vision System Prompt (`VISION_SYSTEM_PROMPT`)
+- **Acoustic & Technical Audit**: Evaluates transducer frequency (curvilinear 3.5–5.0 MHz transabdominal vs. 5.0–9.0 MHz transvaginal), gain uniformity, focal depth, and acoustic phenomena (posterior enhancement, acoustic shadowing, reverberation, side-lobe artifacts).
+- **Standard Anatomic Plane Identification**:
+  - **First Trimester**: Gestational sac (MSD with DDSS), Crown-Rump Length (CRL mid-sagittal section in neutral posture), Nuchal Translucency (NT mid-sagittal section magnified >75%, inner-to-inner calipers).
+  - **Second Trimester Neurosonogram (3 Axial Planes)**:
+    1. *Transventricular (TV)*: Frontal horns, midline falx, CSP, ventricular atrium (<10.0 mm).
+    2. *Transthalamic (TT)*: Paired thalami, box-shaped CSP, ambient cisterns (BPD and HC).
+    3. *Transcerebellar (TC)*: Symmetrical cerebellar hemispheres (dumbbell/peanut shape), vermis, cisterna magna (2.0–10.0 mm), nuchal fold (<6.0 mm).
+  - **Facial Views**: Mid-sagittal profile (nasal bone ossification, micrognathia screening), coronal upper lip and nostrils (cleft lip/palate).
+  - **Fetal Spine**: Sagittal (intact skin line, sacral tapering), axial transverse (3 ossification centers forming closed ring), coronal (parallel vertebral alignment).
+  - **The 5-Plane ISUOG Cardiac Screening Protocol**:
+    1. *Plane 1 (Situs & Stomach)*: Left-sided stomach bubble, descending aorta left of spine, IVC right.
+    2. *Plane 2 (4CV - Four-Chamber View)*: Cardiac axis 45° ± 20° left, heart ~1/3 of thorax, equal atria/ventricles, patent foramen ovale flap in LA, intact ventricular septum, differential AV valve insertion.
+    3. *Plane 3 (LVOT)*: Aortic root from left ventricle, unbroken aortic-mitral continuity.
+    4. *Plane 4 (RVOT)*: Main pulmonary artery from right ventricle crossing anterior to aorta, bifurcation into branch pulmonary arteries.
+    5. *Plane 5 (3VT - Three-Vessel & Trachea View)*: PA > Ao > SVC, V-shaped arch convergence to the left of the trachea.
+  - **Abdomen & Biometry**: Transverse AC plane at J-shaped portal sinus and stomach bubble (kidneys absent), bilateral renal fossae, fluid-filled bladder.
+  - **Extremities**: Femur length (FL) measured along ossified diaphysis perpendicular to the beam.
+  - **Gynecologic Planes**: Midline sagittal uterus (double-layer endometrium, junctional zone), bilateral ovaries (follicles, stroma, cysts per O-RADS), pouch of Douglas free fluid.
+- **Biometric Caliper Integrity**: Rejects off-axis sections; validates outer-to-inner BPD, outer calvarial HC, outer skin-to-skin AC, and diaphyseal FL excluding epiphyses.
+
+### 2. RAG System Prompt (`RAG_SYSTEM_PROMPT`)
+- **Evidence Grounding**: Strictly constrains diagnostic reasoning to the retrieved `rag-only` clinical records.
+- **In-Text Citation Mandate**: Requires `[Record X]` citations for every diagnostic criterion, normal range, and recommendation.
+- **Validated Clinical Thresholds**:
+  - Early Pregnancy Viability: MSD $\ge 25\text{ mm}$ without embryo = anembryonic pregnancy; CRL $\ge 7\text{ mm}$ without heartbeat = embryonic demise.
+  - Ventriculomegaly: $<10.0\text{ mm}$ normal; $10.0\text{--}12.0\text{ mm}$ mild; $12.1\text{--}15.0\text{ mm}$ moderate; $>15.0\text{ mm}$ severe.
+  - Cisterna Magna: $2.0\text{--}10.0\text{ mm}$ normal; $<2.0\text{ mm}$ effaced (Chiari II / open spina bifida).
+  - Nuchal Fold: $<6.0\text{ mm}$ at 18–22 weeks.
+  - Renal Pelvis AP Diameter: $<4.0\text{ mm}$ ($<20\text{w}$), $<7.0\text{ mm}$ ($20\text{--}30\text{w}$), $<10.0\text{ mm}$ (3rd trimester).
+  - Amniotic Fluid: Single Deepest Pocket (SDP: $2.0\text{--}8.0\text{ cm}$), Amniotic Fluid Index (AFI: $5.0\text{--}25.0\text{ cm}$).
+  - Cervical Length: $>25\text{ mm}$ normal on TVS.
+- **Risk Stratification**: Differentiates benign isolated soft markers (e.g., isolated choroid plexus cyst, echogenic intracardiac focus) from complex structural anomalies.
+
+### 3. Unified Multimodal Fusion Prompt (`SYSTEM_PROMPT`)
+- Fuses Vision and RAG into an executive clinical decision-support consultant.
+- Uses an expanded token budget (`MAX_TOKENS = 2500`) and low temperature (`TEMPERATURE = 0.2`) for deterministic medical reporting.
+- Produces a structured 8-part clinical report:
+  1. Executive Status Banner (`🤰 PREGNANCY DETECTED` | `🩺 NON-PREGNANT` | `⚠️ INDETERMINATE / PUL`).
+  2. Scan Classification & Acoustic Plane Verification.
+  3. Primary Visual Evidence.
+  4. Anatomical Findings & Screening Checklist.
+  5. Biometric Summary Table with Gestational Age Equivalents.
+  6. Clinical Interpretation & Guideline Synthesis (`[Record 1]`, `[Record 2]`).
+  7. Findings of Concern & Differential Considerations.
+  8. Actionable Clinical Recommendations & Clinical Support Notice.
 
 ---
 
@@ -110,15 +145,26 @@ graph TD
 ├── .streamlit/
 │   └── config.toml               # Streamlit theme enforcement (light mode, ink tokens)
 ├── rag-only/                     # 1,520 curated clinical ultrasound knowledge base records
+│   ├── indexes/
+│   │   └── kb.sqlite             # Pre-built SQLite FTS5 search index
+│   └── records/
+│       ├── views.jsonl           # Standard anatomical planes and acoustic landmarks
+│       ├── findings.jsonl        # Sonographic features and diagnostic criteria
+│       ├── workflows.jsonl       # Screening workflows and clinical protocols
+│       ├── diseases.jsonl        # Congenital anomalies and pelvic pathologies
+│       ├── cases.jsonl           # Verified clinical cases
+│       ├── media.jsonl           # Figure annotations and scan metadata
+│       ├── evidence.jsonl        # 1,445 cited clinical evidence excerpts
+│       └── sources.jsonl         # 68 primary clinical publications & guidelines
 ├── static/
-│   └── logo.jpeg                 # Static assets directory
+│   └── logo.jpeg                 # Official logo asset for web serving
 ├── api.py                        # FastAPI production REST backend
 ├── app.py                        # Streamlit executive medical dashboard
 ├── index_rag.py                  # Knowledge base indexer (FTS5 / ChromaDB / OpenAI)
 ├── logo.jpeg                     # Official WombCare logo
 ├── pipeline1_ingestion.py        # Cine-loop sampling and image validation
-├── pipeline2_rag.py              # Clinical RAG retrieval & query expansion
-├── pipeline3_fusion.py           # GPT-4o multimodal prompt fusion & inference
+├── pipeline2_rag.py              # Clinical RAG retrieval & evidence formatting
+├── pipeline3_fusion.py           # Clinical system prompts & GPT-4o multimodal inference
 ├── requirements.txt              # Production Python dependencies
 ├── env.example                   # Environment variable template
 ├── .env                          # Local credentials (ignored by git)
@@ -242,35 +288,9 @@ streamlit run app.py --server.port 8501
 ```bash
 curl -X POST "http://localhost:8000/analyze" \
      -F "file=@sample_scan.png" \
-     -F "query=Classify this scan: is pregnancy detected or non-gravid? Detail all visible landmarks." \
+     -F "query=Perform a comprehensive ultrasound evaluation: determine status (gravid vs nongravid), verify standard planes, evaluate biometry, and cite clinical guidelines." \
      -F "k=8"
 ```
-
----
-
-## 🌸 Clinical Reference Standards
-
-WombCare encodes and grounds assessments in established clinical obstetrics:
-
-### First Trimester Milestones (5–12 Weeks)
-- **4.5–5 Weeks**: Intrauterine gestational sac embedded within decidua (double decidual sign).
-- **5–5.5 Weeks**: Yolk sac confirmation (excludes pseudogestational sac).
-- **6–6.5 Weeks**: Fetal pole identification and embryonic cardiac pulsatility (>100 bpm).
-- **7–12 Weeks**: Crown-Rump Length (CRL) dating accuracy within $\pm 3\text{--}5$ days.
-- **11–13+6 Weeks**: Nuchal Translucency (NT) screening parameters.
-
-### Second Trimester Screening (18–22 Weeks)
-- **ISUOG 5-Plane Fetal Echocardiography**:
-  1. Abdominal Situs & Stomach Axis
-  2. Four-Chamber View (4CV, 45° cardiac axis)
-  3. Left Ventricular Outflow Tract (LVOT)
-  4. Right Ventricular Outflow Tract (RVOT)
-  5. Three-Vessel & Trachea View (3VT)
-- **Biometry**: BPD, HC, AC, FL, and estimated fetal weight (EFW).
-
-### Third Trimester Surveillance (28–40 Weeks)
-- **Amniotic Fluid**: Single Deepest Pocket (SDP: $2\text{--}8\text{ cm}$) and Amniotic Fluid Index (AFI: $5\text{--}25\text{ cm}$).
-- **Placenta & Doppler**: Placental localization, retroplacental clear zone, and umbilical artery Doppler indices.
 
 ---
 
