@@ -300,8 +300,4 @@ curl -X POST "http://localhost:8000/analyze" \
 > **Investigational and Clinical Decision-Support Tool Only.**
 > WombCare is designed for research, educational, and assistive clinical reference purposes. It does not replace the formal diagnostic evaluation or medical judgment of certified sonographers, obstetricians, radiologists, or maternal-fetal medicine specialists. Always corroborate ultrasound findings with direct clinical examination, laboratory testing (including serum $\beta$-hCG), and institutional imaging protocols.
 
----
 
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
