@@ -12,7 +12,7 @@
 [![GPT-4o Vision](https://img.shields.io/badge/Model-GPT--4o%20Vision-purple.svg?logo=openai)](https://openai.com/)
 [![Clinical RAG](https://img.shields.io/badge/Knowledge%20Base-rag--only%20(1%2C520%20records)-e91e8c.svg)](#-curated-clinical-rag-pipeline-2)
 [![Medical Guidelines](https://img.shields.io/badge/Standards-ISUOG%20%7C%20AIUM%20%7C%20SMFM-green.svg)](#-clinical-system-prompt-architecture)
-[![License: MIT](https://img.shields.io/badge/License-MIT-gray.svg)](#-license)
+
 
 </div>
 
