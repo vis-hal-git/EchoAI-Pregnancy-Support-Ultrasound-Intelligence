@@ -644,18 +644,8 @@ with left_col:
         </div>
         """, unsafe_allow_html=True)
 
-    with st.expander("💬 Optional: Custom Focus or Clinical Query", expanded=False):
-        custom_question = st.text_input(
-            "Specific area to evaluate (optional)",
-            value="",
-            placeholder="e.g. Check for gestational sac viability, evaluate endometrial stripe, or review ovaries",
-            help="Leave blank to automatically run the full standard clinical assessment report.",
-        )
-        if is_video_upload:
-            k_frames = st.slider("Cine sweep keyframes (k)", 4, 16, 8, 1, help="Number of frames extracted across the cine-loop sweep.")
-        else:
-            k_frames = 8
-
+    k_frames = 8
+    custom_question = ""
     b1, b2 = st.columns([2.3, 1])
     with b1:
         generate_clicked = st.button("🌸 Upload & Generate Report", type="primary", use_container_width=True)
@@ -751,9 +741,8 @@ with right_col:
         else:
             st.markdown('<div class="banner banner-info"><div class="banner-title">💡 Pregnancy Support Consultation</div>Evidence-based response grounded in clinical ultrasound knowledge base.</div>', unsafe_allow_html=True)
 
-    tab_report, tab_chat, tab_cites, tab_tele = st.tabs([
+    tab_report, tab_cites, tab_tele = st.tabs([
         "📋 Detailed Assessment Report",
-        "💬 Consultation & Follow-up",
         f"📚 Clinical Records ({len(st.session_state.citations)})",
         "🔬 Session Info",
     ])
@@ -785,52 +774,6 @@ with right_col:
                 st.markdown(latest_report)
         else:
             st.info("👆 Upload an ultrasound image on the left and click **Upload & Generate Report** to produce a detailed assessment.")
-
-    # ── Chat Tab ──
-    with tab_chat:
-        if not st.session_state.chat_history:
-            st.info("Upload an ultrasound image on the left and click **Upload & Generate Report** to begin.")
-        else:
-            for turn in st.session_state.chat_history:
-                role    = turn["role"]
-                content = turn["content"]
-                ts      = turn.get("timestamp", "")
-                if role == "user":
-                    with st.chat_message("user", avatar="🌸"):
-                        st.markdown(f"**Your scan** `{ts}`")
-                        st.markdown(content)
-                else:
-                    with st.chat_message("assistant", avatar=LOGO_PATH if os.path.exists(LOGO_PATH) else "🩺"):
-                        st.markdown(f"**WombCare** `{ts}`")
-                        st.markdown(content)
-
-            if st.session_state.session_id:
-                st.markdown("---")
-                follow_up = st.chat_input("Ask a follow-up question…")
-                if follow_up:
-                    with st.spinner("Consulting clinical knowledge base…"):
-                        try:
-                            resp = requests.post(
-                                f"{API_URL}/chat",
-                                data={
-                                    "session_id": st.session_state.session_id,
-                                    "follow_up": follow_up,
-                                    "k": k_frames if "k_frames" in locals() else 8,
-                                },
-                                timeout=110,
-                            )
-                            if resp.status_code == 200:
-                                res = resp.json()
-                                now_str = datetime.datetime.now().strftime("%H:%M:%S")
-                                st.session_state.chat_history.append({"role":"user",      "content":follow_up,      "timestamp":now_str})
-                                st.session_state.chat_history.append({"role":"assistant", "content":res["answer"],  "timestamp":now_str})
-                                if res.get("citations"):
-                                    st.session_state.citations = res["citations"]
-                                st.rerun()
-                            else:
-                                st.error(f"Error {resp.status_code}: {resp.text}")
-                        except Exception as e:
-                            st.error(f"Chat error: {e}")
 
     # ── Citations Tab ──
     with tab_cites:

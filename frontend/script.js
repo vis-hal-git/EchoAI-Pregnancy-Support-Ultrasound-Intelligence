@@ -211,8 +211,7 @@ document.querySelectorAll(
   const previewVid     = document.getElementById('preview-vid');
   const fileMeta       = document.getElementById('file-meta');
   const changeFileBtn  = document.getElementById('change-file-btn');
-  const customQuery    = document.getElementById('custom-query');
-  const analyzeBtn     = document.getElementById('analyze-btn');
+    const analyzeBtn     = document.getElementById('analyze-btn');
   const resetBtn       = document.getElementById('reset-btn');
   const progressBar    = document.getElementById('analysis-progress');
   const progressText   = document.getElementById('progress-text');
@@ -230,10 +229,7 @@ document.querySelectorAll(
   const citationsSec   = document.getElementById('citations-section');
   const citationsList  = document.getElementById('citations-list');
   const citationCount  = document.getElementById('citation-count');
-  const chatThread     = document.getElementById('chat-thread');
-  const followUpInput  = document.getElementById('follow-up-input');
-  const sendChatBtn    = document.getElementById('send-chat-btn');
-
+      
   if (!dropZone || !analyzeBtn) return; // Not on page with analyzer
 
   let currentFile = null;
@@ -325,9 +321,7 @@ document.querySelectorAll(
     dropPrompt.style.display = 'block';
     reportContent.style.display = 'none';
     reportEmpty.style.display = 'block';
-    customQuery.value = '';
-    chatThread.innerHTML = '';
-  });
+          });
 
   // Analyze button
   analyzeBtn.addEventListener('click', async () => {
@@ -355,8 +349,7 @@ document.querySelectorAll(
 
     const formData = new FormData();
     formData.append('file', currentFile);
-    const query = customQuery.value.trim() ||
-      'Perform a comprehensive ultrasound evaluation: determine status (gravid vs nongravid), verify standard planes, evaluate biometry, and cite clinical guidelines.';
+    const query = 'Perform a comprehensive ultrasound evaluation: determine status (gravid vs nongravid), verify standard planes, evaluate biometry, and cite clinical guidelines.';
     formData.append('query', query);
     formData.append('k', '8');
 
@@ -429,12 +422,7 @@ document.querySelectorAll(
       citationsSec.style.display = 'none';
     }
 
-    // Initialize chat thread with initial turn
-    chatThread.innerHTML = `
-      <div class="chat-bubble chat-bubble-asst">
-        <strong>WombCare AI:</strong> I have completed the clinical evaluation for <em>${escapeHtml(currentFile.name)}</em>. You can ask follow-up questions below.
-      </div>
-    `;
+    
 
     // Scroll to report smoothly
     document.getElementById('report-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -452,52 +440,7 @@ document.querySelectorAll(
     URL.revokeObjectURL(url);
   });
 
-  // Follow-up Consultation Chat
-  async function handleChat() {
-    const text = followUpInput.value.trim();
-    if (!text || !currentSessionId) return;
-
-    // Append user bubble
-    const userBubble = document.createElement('div');
-    userBubble.className = 'chat-bubble chat-bubble-user';
-    userBubble.textContent = text;
-    chatThread.appendChild(userBubble);
-    followUpInput.value = '';
-    chatThread.scrollTop = chatThread.scrollHeight;
-
-    // Loading assistant bubble
-    const asstBubble = document.createElement('div');
-    asstBubble.className = 'chat-bubble chat-bubble-asst';
-    asstBubble.innerHTML = '<span class="spinner-ring" style="width:12px;height:12px;"></span> Consulting clinical knowledge base...';
-    chatThread.appendChild(asstBubble);
-    chatThread.scrollTop = chatThread.scrollHeight;
-
-    const formData = new FormData();
-    formData.append('session_id', currentSessionId);
-    formData.append('follow_up', text);
-    formData.append('k', '8');
-
-    try {
-      const res = await fetch('/chat', { method: 'POST', body: formData });
-      if (!res.ok) {
-        asstBubble.textContent = 'Chat error: ' + (await res.text());
-        return;
-      }
-      const data = await res.json();
-      asstBubble.innerHTML = parseMarkdown(data.answer);
-      chatThread.scrollTop = chatThread.scrollHeight;
-    } catch (e) {
-      asstBubble.textContent = 'Connection error: ' + e.message;
-    }
-  }
-
-  sendChatBtn.addEventListener('click', handleChat);
-  followUpInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleChat();
-    }
-  });
+  
 
   // Markdown Parser
   function parseMarkdown(md) {
