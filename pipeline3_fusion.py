@@ -28,8 +28,8 @@ load_dotenv()
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 GPT_MODEL   = os.getenv("GPT_MODEL", "gpt-4o")
-MAX_TOKENS  = 2500   # Expanded token budget for comprehensive clinical reports
-TEMPERATURE = 0.2    # Low temperature for deterministic, guideline-grounded outputs
+MAX_TOKENS  = 5000   # Expanded token budget for comprehensive clinical reports
+TEMPERATURE = 0.7    
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PIPELINE 1 — DEDICATED CLINICAL VISION SYSTEM PROMPT
